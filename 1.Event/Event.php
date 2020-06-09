@@ -2,35 +2,6 @@
 /*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
 class Event
 	{
-	//private $strBasePath;
-	/*private $arrEvents	=
-		array(
-			'/'=>array(),
-			'/Master'=>array(),
-			'/search'=>array(
-				'name'=>array(
-					'intLength'	=>250,
-					'strValidate'	=>'/[.*]/',
-					),
-				'style'=>array(
-					'intLength'	=>250,
-					'strValidate'	=>'/[.*]/',
-					),
-				'codec'=>array(
-					'intLength'	=>12,
-					'strValidate'	=>'/[.*]/',
-					),
-				'bitrate'=>array(
-					'intLength'	=>4,
-					'strValidate'	=>'/[.*]/',
-					),
-				'd'	=>array(
-					'intLength'	=>1,
-					'strValidate'	=>'/[.*]/',
-					)
-				),
-			);
-		*/
 	public function __construct($_objKIIM, $obj)
 		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 
@@ -102,8 +73,6 @@ class Event
 					);
 			$this->strAction	='/home/EDRO.PolymerConstructor/Main';
 			$this->strMethod	='strHTML';
-			
-			//$this->strAction	='FileList::strHTML($_objKIIM, "/home/EDRO.PolymerConstructor/Main")';
 			}
 		elseif(bIzEvent('/stationList', $strRequest))
 			{
@@ -167,16 +136,6 @@ class Event
 
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
-	/*private function arrReadSetup($_objKIIM)
-		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
-
-		$strEventJSON=$this->strBasePath.'/1.Event/'.$this->objEvent->arrRequest[0].'/.strEvents.json';
-		
-		$arr=Read::arrJSON($objKIIM, $strEventJSON);
-		
-		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
-		return $arr;
-		}*/
 	private function bIsDynamic($_objKIIM)
 		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 

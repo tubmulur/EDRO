@@ -3,7 +3,9 @@
 class Event
 	{
 	public function __construct($_objKIIM, $obj)
-		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		{
+		$objKIIM=$_objKIIM;unset($_objKIIM);
+		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 
 		//$this->strBasePath	=Reality::strBasePath();
 		$strRequest=strGetRequest();
@@ -129,7 +131,6 @@ class Event
 			}
 
 		$this->bIsDynamic=$this->bIsDynamic($objKIIM);
-		//$this->arrSetup		=$this->arrRead($objKIIM);
 		/*echo'<pre>';
 			print_r($this);
 		echo'</pre>';*/

@@ -1,18 +1,16 @@
 <?php
 /*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
-class Design
+class Design extends Reality
 	{
-	private $strBasePath;
-	public function __construct($_objKIIM, $_obj)
+	public function __construct($_objKIIM)
 		{
-		$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		$objKIIM=$_objKIIM;unset($_objKIIM);
+		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 
-		$this->strBasePath	=Reality::strBasePath();
-		 $obj=$_obj;
-		unset($_obj);
+		$this->arrEDRO['arrDesign'];
 
-		$strObjectName=ucfirst(substr($obj->objEvent->strAction,1));
-		$this->strPath=$this->strBasePath.'/2.Design/.str'.$strObjectName.'.php';
+		parent::__construct($objKIIM);
+
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
 	public static function strInitJs()
@@ -31,7 +29,7 @@ class Design
 			{
 			constructor()
 				{
-					console.log('Design constructor started');
+				console.log('Design constructor started');
 				}
 			}
 		</script>

@@ -1,39 +1,38 @@
 <?php
 /*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
-class Reality
+class Reality extends Objects
 	{
-	public 		$strBasePath;
+	public function __construct($_objKIIM)
+		{$objKIIM=$_objKIIM;unset($_objKIIM);
+		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 
-	public function __construct($_objKIIM, $_obj)
-		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 
-		$this->strBasePath	=Reality::strBasePath();
-
-		$this->strRole		='Listener';
-		$strRealitySignal=Read::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->strRole.'/.strLang.php');
-		$this->strRoleSignal	=rmLb($strRealitySignal);
+		$this->strRealityRoleSignal	='Listener';
+		$strRealityRoleLangSignal	=Read::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->strRealityRoleSignal.'/.strLang.php');
+		$this->strRealityRoleLangSignal	=rmLb($strRealityRoleLangSignal);
 		
-		$strLang=strGetDomainName();
-		if(strtoupper($strLang)=="COM")
+		$strLangSignal=strGetDomainName();
+		if(strtoupper($strLangSignal)=="COM")
 			{
-			$strLang	='EN';
+			$strLangSignal	='EN';
 			}
-		if(strtoupper($strLang)=="RU")
+		if(strtoupper($strLangSignal)=="RU")
 			{
-			$strLang	='RU';
+			$strLangSignal	='RU';
 			}
 		else
 			{
-			$strLang	='EN';
+			$strLangSignal	='EN';
 			}
-		$this->strLang	=strtoupper($strLang);
+		$this->strLangSignal	=strtoupper($strLangSignal);
 
 		?>
 		<script charset="utf-8">
-			var strSignalRole	='<?=$this->strRoleSignal?>';
-			var strSignalLang	='<?=$this->strLang?>';
+			var strSignalRole	='<?=$this->strRealityRoleLangSignal?>';
+			var strSignalLang	='<?=$this->strLangSignal?>';
 		</script>
 		<?php
+		parent::__construct($objKIIM);
 
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}

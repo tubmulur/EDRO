@@ -66,6 +66,7 @@ class Event extends Design
 			var _Flow1;
 			var intStep		=0;
 			
+			
 			_FlowSync= function()
 				{
 				if(objKIIM_StatisticalMembrane.bIzRunning==true)
@@ -73,26 +74,48 @@ class Event extends Design
 					objKIIM_StatisticalMembrane._incTime();
 					}
 				objOscilloscope.innerHTML	=intStep++;
+				var objDate		=new Date();
+				//console.log(objDate);
 				}
 			class Event
 				{
 				constructor()
 					{
-					console.log('Event constructor started');
+					console.log('Event: Constructor started.');
 					//this.objXHR			=new XMLHttpRequest();
 					this.strURL			='';
 					this.strDynaUpdate		='';
 					this.bIzHistory			=true;
-					this.objNav			={hifi:1};
-					console.log('Event constructor finished');
+					this.objNav			={'strUrl':window.location.href,'strSearchName':'','strSearchStyle':'','strSearchBitrate':'','strSearchCodec':''};
+					
+					window.onpopstate=function(event)
+						{
+						console.log('Event: Browser navigation.');
+						console.log(event);
+						objSearch.strValueInputName		=event.state.strSearchName;
+						objSearch.strValueInputStyle		=event.state.strSearchStyle;
+						objSearch.strValueInputBitrate		=event.state.strSearchBitrate;
+						objSearch.strValueInputCodec		=event.state.strSearchCodec;
+						console.log(objSearch);
+						objSearch.strURL		=event.state.strUrl;
+						objDynaScreen.strURL		=event.state.strUrl;
+						objEvent.strURL			=event.state.strUrl;
+						objSearch._ActualizeInputFields();
+						objDynaScreen._Update();
+						}
+					console.log('Event: Constructor finished.');
 					}
 				_Send()
 					{
-					console.log('Event push event');
+					console.log('Event: Push event?.');
 					if(this.bIzHistory)
 						{
 						console.log('Event push history:'+this.strURL);
-						history.pushState(objEvent.objNav, 'Search', this.strURL);
+						this.objNav.strSearchName		=objSearch.strValueInputName;
+						this.objNav.strSearchStyle		=objSearch.strValueInputStyle;
+						this.objNav.strSearchBitrate		=objSearch.strValueInputBitrate;
+						this.objNav.strSearchCodec		=objSearch.strValueInputCodec;
+						history.pushState(this.objNav, 'Search', this.strURL);
 						}
 					}
 				}

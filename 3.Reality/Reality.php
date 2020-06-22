@@ -5,10 +5,61 @@ class Reality extends Objects
 	public function __construct($_objKIIM)
 		{$objKIIM=$_objKIIM;unset($_objKIIM);
 		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		$this->_isConsole($objKIIM);
 
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		session_start();
+		$strListnersPath				='/home/EDRO.o2o/Listeners/';
+		$this->arrEDRO['arrReality']['strListnersPath']	=$strListnersPath;
+		$strListenerFile				='';
+		$intCurrentTime					=floor(microtime(true));
+		$strFileSuffix					='_'.$intCurrentTime.'.json';
+		//$strFileSuffix					='.json';
+		if(isset($_SESSION['intListnerId']))
+			{
+			$intSafeSessionId		=(integer)$_SESSION['intListnerId'];
+			$strListenerFile		=$intSafeSessionId.$strFileSuffix;
+			}
+		else
+			{
+			$intListenerCount		=count(scandir($strListnersPath));
+			$strListenerFile		=$intListenerCount.$strFileSuffix;
+			$_SESSION['intListnerId']	=$intListenerCount;
+			}
+		$intSafeSessionId=(integer)$_SESSION['intListnerId'];
+		exec('rm -f '.$strListnersPath.$intSafeSessionId.'_*'); 
+		file_put_contents($this->arrEDRO['arrReality']['strListnersPath'].$strListenerFile, json_encode(array('strStyle'=>$this->arrEDRO['arrEvent']['arrParams']['style'])));
+		$arrActiveListeners=scandir($strListnersPath);
+		$this->arrEDRO['arrReality']['arrCurrentListeners']['intOnlineCount']		=0;
+		$this->arrEDRO['arrReality']['arrCurrentListeners']['intOnline24hCount']	=0;
+		foreach($arrActiveListeners as $strFile)
+			{
+			if($strFile!='..'&&$strFile!='.')
+				{
+				//echo $strFile;
+				$intSessionTime	=preg_replace('/^([0-9]*)\_([0-9]*)(\.json)$/', '$2', $strFile);
+				$intSessionId	=preg_replace('/^([0-9]*)\_([0-9]*)(\.json)$/', '$1', $strFile);
+				if(($intCurrentTime-(60*60*24))<$intSessionTime)
+					{
+					$this->arrEDRO['arrReality']['arrCurrentListeners']['intOnline24hCount']++;
+					}
+				if(($intCurrentTime-300)<$intSessionTime)
+					{
+					//echo $strFile;
+					//echo'<br/>';
+					$arrListener=FileRead::arrJSON($objKIIM, $this->arrEDRO['arrReality']['strListnersPath'].$strFile);
+					$this->arrEDRO['arrReality']['arrCurrentListeners'][$intSessionId]=$arrListener;
+					$this->arrEDRO['arrReality']['arrCurrentListeners']['intOnlineCount']++;
+					}
+				//echo 
+				
+				}
+			
+			}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		$this->strRealityRoleSignal	='Listener';
-		$strRealityRoleLangSignal	=Read::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->strRealityRoleSignal.'/.strLang.php');
+		$strRealityRoleLangSignal	=FileRead::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->strRealityRoleSignal.'/.strLang.php');
 		$this->strRealityRoleLangSignal	=rmLb($strRealityRoleLangSignal);
 		
 		$strLangSignal=strGetDomainName();
@@ -39,6 +90,21 @@ class Reality extends Objects
 	public static function strBasePath()
 		{
 		return'/home/EDRO';
+		}
+	private function _isConsole($_objKIIM)
+		{
+		$objKIIM=$_objKIIM;unset($_objKIIM);
+		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+
+		$this->arrEDRO['arrReality']['bIzConsole']=false;
+		if(php_sapi_name()=='cli')
+			{
+			$this->arrEDRO['arrReality']['bIzConsole']=true;
+			}
+		else
+			{
+			}
+		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
 	public static function strInitJs()
 		{

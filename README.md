@@ -17,5 +17,7 @@
 # (int0_name+1) >|<|==|!= int1_name;
 # (int0_name+1)/int1_name=int1_result;
 # int1_result-1=int0_result;
+# int0_name/(int1_name-1)=int0_result;
+# int0_result+1=int1_result;
 
 #   Автор: A.A.Chekmarev: assminog@gmail.com. 

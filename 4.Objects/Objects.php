@@ -1,43 +1,127 @@
 <?php
-/*© A.A.CheckMaRev assminog@gmail.com*/
-//////   /\ RCe	[E] Event
-   //  <  **> 	[D] Device
- //     Jl   	[R] Reality
-////// 2020	[O] Objects
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
 
 class Objects
 	{
 	public function __construct($_objKIIM)
-		{$objKIIM=$_objKIIM;unset($_objKIIM);
-		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__,'_strMethod'=>__FUNCTION__, '_strMessage'=>'', '_objCurrent'=>'', '_intShowTempo'=>'' ));
+		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__,'_strMethod'=>__FUNCTION__, '_strMessage'=>'', '_objCurrent'=>'', '_intShowTempo'=>'' ));
 
-		//echo'<pre>';
-		//	print_r($this->arrEDRO['arrObjects']);
-		//echo'</pre>';
-		foreach($this->arrEDRO['arrObjects'] as $strObjectName=>$arrObjectEDRO)
+		//$strSearchName		=сПреобразовать(mb_strtolower(trim($this->arrEvent['arrParams']['strName'])),	'вКоманду');
+		$strSearchName		='';
+		$strSearchStyle		=mb_strtolower(trim($this->arrEvent['arrParams']['strStyle']));
+
+		$strSearchBitrate	=mb_strtolower(trim($this->arrEvent['arrParams']['intBitrate']));
+		$strSearchCodec		=mb_strtolower(trim($this->arrEvent['arrParams']['strCodec']));
+		$сРасположениеКорень	='/home/ЕДРО:ПОЛИМЕР/020.Синтез.ЕДРО/020.Если/020.Действие/020.Реальность/020.Объект/Чтение_Диск/БазаДанных/HiFiIntelligentClub';
+		
+		if(empty($strSearchStyle))
 			{
-			//echo $strObjectName;
-			$this->arrEDRO['arrObjects'][$strObjectName]['arrEvent']=$this->arrEDRO['arrEvent'];
-			//echo'<pre>';
-			//print_r($this->arrEDRO['arrObjects'][$strObjectName]);
-			//echo'</pre>';
+			$strSearchPath	='/Stations/unordered';
+			if(empty($strSearchBitrate))
+				{
+				if(empty($strSearchCodec))
+					{
+					}
+				else
+					{
+					$strSearchPath	='/server_type/unordered';
+					}
+				}
+			else
+				{
+				$strSearchPath	='/bitrate/unordered';
+				$strSearchPath.='/'.$strSearchBitrate.'/unordered';
+				if(empty($strSearchCodec))
+					{
+					}
+				else
+					{
+					$strSearchPath.='/server_type/unordered';
+					$strSearchPath.='/'.$strSearchCodec.'/unordered';
+					}
+				}
 			}
-		//$obj=$_obj;
-		//unset($_obj);
-		//$this->strClass		=ucfirst(substr($obj->objEvent->strAction,1));
-		//$this->strMethod	='strHTML';
-		///$this->strParams	=$obj->objEvent->arrParams;
-		//$this->obj		=$this->strClass::$this->strMethod($objKIIM, $this->strParams);
-		//$strName		=$_arr['_strName'];
-		//$strMethod		=$_arr['_strMethod'];
-		//$arrData		=$_arr['_arrData'];
+		else
+			{
+			$strSearchPath	='/genre/unordered/'.$strSearchStyle.'/unordered';
+			if(empty($strSearchBitrate))
+				{
+				if(empty($strSearchCodec))
+					{
+					}
+				else
+					{
+					$strSearchPath	.='/server_type/unordered/'.$strSearchCodec.'/unordered';
+					}
+				}
+			else
+				{
+				$strSearchPath.='/bitrate/unordered'.$strSearchBitrate.'/unordered';
+				if(empty($strSearchCodec))
+					{
+					}
+				else
+					{
+					$strSearchPath.='/server_type/unordered/'.$strSearchCodec.'/unordered';
+					}
+				}
+			};
 
-		//$strName::$strMethod($objKIIM, $arrData);
-		//print_r($_arr['_arrMethodData']);
-		//$object=new$_arr['']
-		//quire_once('/home/EDRO.SetOfTools/System/6.HTML_Interfaces/3.HTML_CloseInterface.php');
+		$this->arrObjects['сРасположение']		=$сРасположениеКорень.$strSearchPath;
+		$this->arrObjects['сРасположениеTotal']		=$this->arrObjects['сРасположение'].'/total.plmr';
+
 
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		}
+	public static function strObjectInit()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO.Objects: _Init');
+			objObjects	=new Objects();
+			console.log('[.]EDRO.Objects: _Init');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+		console.log('[V]EDRO.Objects: Declare');
+		class Objects
+			{
+			constructor()
+				{
+				console.log('[Vv]EDRO.Objects: Construct');
+				console.log('[..]EDRO.Objects: Construct');
+				}
+			}
+		console.log('[.]EDRO.Objects: Declare');
+		</script>
+oo2oo;
+		return $str;
 		}
 	}
 ?>

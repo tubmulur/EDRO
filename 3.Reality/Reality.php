@@ -23,6 +23,7 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 ./././././././*/
 class Reality extends Objects
 	{
+	protected $strBasePath	='/home/EDRO';
 	public function __construct($_objKIIM)
 		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////

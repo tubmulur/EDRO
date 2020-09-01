@@ -26,12 +26,16 @@ class Pagination
 	public $arr	=array();
 	public function __construct($_objKIIM, $objEDRO)
 		{
+		$objKIIM=$_objKIIM;
+		   unset($_objKIIM);
 		/*echo*/$int0Page	=($objEDRO->arrEvent['arrParams']['int0Page']); //0,1,xxx
 		/*echo*/$int1OnPage	=$objEDRO->arrEvent['arrParams']['int1OnPage']; //1-> 8 = 8
 		/*echo*/$int0Start	=0+($int0Page*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
 		/*echo*/$int1Untill	=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
+			$int0Untill	=($int1Untill-1);
 		/*echo*/$objTotal	=FileRead::objJSON($objKIIM, $objEDRO->arrObjects['сРасположениеTotal']); //0-lastone
 		/*echo*/$int1Total	=($objTotal->total); //Channge in par
+			$int0Total	=($int1Total-1);
 		unset($objTotal);
 		/*echo*/$int1Pages	=intRoundUp(($int1Total)/$int1OnPage);//totall is not from 0, to find we need to convert ;
 		$int0Pages		=($int1Pages-1);
@@ -46,15 +50,15 @@ class Pagination
 			{
 			//$int0Page					=($int1Page-1);
 			}
-		if(($int1Total-$int1Untill)<0)
+		if($int0Total<$int0Untill)
 			{
-			$int0Untill=($int1Total-1);
+			$int0Untill=$int0Total;
 			}
 		else
 			{
-			$int0Untill=($int1Untill-1);
+			//$int0Untill=($int1Untill-1);
 			}
-		if($int1Total<$int1Start)
+		if($int0Total<$int0Start)
 			{
 			$int0Start=($int1OnPage*$int0Page);
 			}

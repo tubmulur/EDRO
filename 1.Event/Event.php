@@ -105,20 +105,7 @@ oо2оo;
 					this.objXHR		=new XMLHttpRequest();
 					this.strURL		='';
 					this.strURLDyn		='';
-//oо2оo;
-//		$str	.='this.arrParams={'.strArrayRec2JS(arrGetEventSetter(), 'arrParams').'};';
-//		$str	=<<<oо2оo
-					/*this.arrParams		={
-						'name':'',
-						'style':'',
-						'bitrate':'',
-						'codec':'',
-						'page':0,
-						'onPage':1,
-						'playingStationId':'',
-						'playingStationNum':'',
-						'strStationId':''
-						};*/
+					this.arrParams		=[];
 					this.strParams		='';
 					//console.log(this.arrParams);
 					this.objNav		={'HFIC':'ICQR'};

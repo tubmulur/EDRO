@@ -363,7 +363,7 @@ oо2оo;
 				}
 			console.log('[.]EDRO.Event: Declare');
 		</script>
-
+oо2оo;
 		return $str;
 		}
 	public static function strInitStreamClock()

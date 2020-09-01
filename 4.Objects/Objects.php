@@ -90,6 +90,7 @@ class Objects
 
 		$this->arrObjects['сРасположение']		=$сРасположениеКорень.$strSearchPath;
 		$this->arrObjects['сРасположениеTotal']		=$this->arrObjects['сРасположение'].'/total.plmr';
+		$this->arrObjects['мРасположение']		=Pagination::arr($objKIIM, $this);
 
 
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));

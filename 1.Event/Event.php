@@ -29,18 +29,13 @@ class Event extends Design
 		// 0.strNDigit ->  arrAllIncomeActions
 		// 0.strNDigit ->  arrAllIncomeParametrs
 		$this->arrEvent			=arrGetEventSetter();
-
 		
 		$this->arrEvent['bIsDynamic']	=$this->bIsDynamic();
 		$this->arrEvent['strObjectParams']='objEvent.arrParams={'.strArrayRec2JS($this->arrEvent, 'arrParams').'};';
-		
-		
 		/*echo '<pre>';
 		print_r($this->arrEvent);
 		echo '</pre>';
 		exit;*/
-		
-		
 		//Event::strObjectDeclare();
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		parent::__construct($objKIIM);
@@ -106,6 +101,16 @@ oо2оo;
 					this.strURL		='';
 					this.strURLDyn		='';
 					this.arrParams		=[];
+					this.arrParams={
+						'strPlayingStationId'	:'',
+						'strName'		:'',
+						'strStyle'		:'',
+						'intBitrate'		:'',
+						'strCodec'		:'',
+						'int0Page'		:0,
+						'int1OnPage'		:3,
+						'int0PlayingStationNum'	:0,
+						};
 					this.strParams		='';
 					//console.log(this.arrParams);
 					this.objNav		={'HFIC':'ICQR'};
@@ -120,7 +125,7 @@ oо2оo;
 						console.log('[Vvv]EDRO.Event: objXHR.onload');
 						if(objEvent.objXHR.status==200)
 							{
-							objDesign._UpdateDimensions();
+							//objDesign._UpdateDimensions();
 							objEvent.objXHR.response;
 							if(objReality.bIzPlayer)
 								{
@@ -221,6 +226,10 @@ oо2оo;
 					objEvent._Request();			//objObjects->objEvent
 					console.log('[..]EDRO.Objects: _CheckMaNet()');
 					}
+				_CreateParamsArr()
+					{
+					objEvent.arrParams	=document.location.search.substr(1).split('&');
+					}
 				_CreateParamsStr()
 					{
 					console.log('[Vv]EDRO.Reality: _CreateParamsStr()');
@@ -264,6 +273,7 @@ oо2оo;
 					{//(CAUTION!!!:Inside of updating object must be information of EDRO DESIGN MATRIX position!!)
 					//    //  ///  Don't create functions with declareddestination of the request!! 06.08.2020 ChekMaNet
 					console.log('[Vv]EDRO.Objects: _Update()'+objEvent.strURL);//objObjects->objEvent
+					
 					objReality.bIzHistory					=true;
 					objReality.bIzLoading					=true;
 					objReality.bIzDynaScreen				=true;
@@ -349,79 +359,6 @@ oо2оo;
 					}*/
 				}
 			console.log('[.]EDRO.Event: Declare');
-		</script>
-oо2оo;
-		return $str;
-		}
-	public static function strInitStreamClock()
-		{
-		$str	=<<<oо2оo
-		<script>
-			console.log('[V]EDRO.Event: InitStreamClock');
-			console.log('[.++.+.*.*.++.+.+]EDRO.Event: Init event stream graph circle.');
-			objEDRO._CircleControllerGraph	=setInterval(objEDRO.funControllerGraph, 1000);
-			console.log('[.]EDRO.Event: InitStreamClock');
-		</script>
-oо2оo;
-		return $str;
-		}
-	public static function strDeclareStreamClock()
-		{
-		$str	=	<<<oо2оo
-		<script>
-			console.log('[V]EDRO.Event: _DeclareStreamClock');
-			objEDRO.funControllerGraph= function()
-				{
-				var objDate	=new Date();
-				if(objPlayer.bIzPlaying) //!!!    objReality.bIzPlayerPlaying!!!
-					{
-					
-				//	objPlayer.objVisibleControlsPlayingDuration.innerHTML=objPlayer.intPlayingDuration;
-					objPlayer.intPlayingDuration++;
-					}
-				if(objPlayer.bIzLoading)
-					{
-				//	objPlayer.objVisibleControlsLoadingDuration.innerHTML=objPlayer.intLoadingDuration;
-					
-					objIndicatorMasterClock.objStrServerLoading.innerHTML	=objReality.intMaxLoadingTime+'/'+objReality.intLoadingTime+'/'+objPlayer.intLoadingDuration;
-					if(!objPlayer.bIzNeedToBeStoppedEvent)
-						{
-						//objPlayer.objAudio.load();
-						}
-					objPlayer.intLoadingDuration++;
-					//objPlayer.bIzLoading=false;
-					}
-				if(objReality.bIzLoading)
-					{
-					objIndicatorMasterClock.objStrServerLoading.innerHTML	=objReality.intMaxLoadingTime+'/'+objReality.intLoadingTime;
-					if(objReality.intLoadingTime>=objReality.intMaxLoadingTime)
-						{
-						objReality.intMaxLoadingTime=objReality.intLoadingTime;
-						}
-					objReality.intLoadingTime++;
-					}
-				/*if(objPlayer.bIzError)
-					{
-					}*/
-				if(objEDRO.intVector==2)
-					{
-					console.log('[=^Vvv]EDRO.Event: funControllerGraph');
-					console.log(objEDRO.intStep);
-					objEDRO.intVector	=0;
-					objDesign._UpdateDimensions();
-					console.log('[[=^...]EDRO.Event: funControllerGraph');
-					}
-				if(objKIIM_StatisticalMembrane.bIzRunning==true)
-					{
-					objKIIM_StatisticalMembrane._incTime();
-					}
-				objIndicatorMasterClock.objStr.innerHTML	=objEDRO.intStep++;
-				objEDRO.intVector++;
-				objEDRO._CircleControllerGraph;
-
-				return 0;
-				}
-			console.log('[.]EDRO.Event: _DeclareStreamClock');
 		</script>
 oо2оo;
 		return $str;

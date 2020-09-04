@@ -4,8 +4,8 @@
 
 Email:    assminog@gmail.com
 Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
+Phone:    +7(911)7874457
+Whatsapp: +7(911)7874457
 Telegram: https://t.me/HficSamin
 VK:       https://vk.com/Hfic.Samin
 VK:       https://vk.com/HiFiIntelligentClub
@@ -14,13 +14,13 @@ Facebook: https://facebook.com/HiFiIntelligentClub
 Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
 Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
 Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
+|E    |D     |R      |O      |											
+|Event|Design|Reality|Objects|										
+ ////// 2020                   /////  / 							
+//        /\                  // /   								
+//      <  **>               /// /  							
+ //////   jl                ///// /    						
+./././././././*/							
 
 class Objects
 	{
@@ -92,36 +92,89 @@ class Objects
 		$this->arrObjects['сРасположениеTotal']		=$this->arrObjects['сРасположение'].'/total.plmr';
 		$this->arrObjects['мРасположение']		=Pagination::arr($objKIIM, $this);
 
-
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
 	public static function strObjectInit()
 		{
-		$str	=<<<oo2oo
+		$str	=<<<oо2оo
 		<script>
-			console.log('[V]EDRO.Objects: _Init');
-			objObjects	=new Objects();
-			console.log('[.]EDRO.Objects: _Init');
+			console.log('[V]EDRO.O: Declare');
+			console.log('[.++.+.*.*.++.+.+]EDRO.Event: Init event stream graph circle.');
+			objEDRO._CircleControllerGraph	=setInterval(objEDRO.funControllerGraph, 1000);
+			console.log('[.]EDRO.O: Declare');
 		</script>
-oo2oo;
+oо2оo;
 		return $str;
 		}
 	public static function strObjectDeclare()
 		{
-		$str	=<<<oo2oo
+		$str	=	<<<oо2оo
 		<script>
-		console.log('[V]EDRO.Objects: Declare');
-		class Objects
-			{
-			constructor()
+			console.log('[V]EDRO.O: Declare');
+			objEDRO.funControllerGraph= function()
 				{
-				console.log('[Vv]EDRO.Objects: Construct');
-				console.log('[..]EDRO.Objects: Construct');
+				var objDate	=new Date();
+				if(objPlayer.bIzPlaying) //!!!    objReality.bIzPlayerPlaying!!!
+					{
+					document.title	=objPlayer.strStationName+'HiFiIntelligentClub.com';
+					//objPlayer.objVisibleControlsPlayingDuration.innerHTML=objPlayer.intPlayingDuration;
+					objPlayer.intPlayingDuration++;
+					}
+				if(objPlayer.bIzLoading)
+					{
+					//objPlayer.objVisibleControlsLoadingDuration.innerHTML=objPlayer.intLoadingDuration;
+					if(objPlayer.intPlayerLoadingAnim==3)
+						{
+						objPlayer.intPlayerLoadingAnim	=0;
+						objPlayer.strPlayerLoadingAnim	='';
+						}
+					objPlayer.intPlayerLoadingAnim++;
+					objPlayer.strPlayerLoadingAnim	+='.';
+					document.title	=objPlayer.strPlayerLoadingAnim+objPlayer.strStationName+'.HiFiIntelligentClub.com';
+					objIndicatorMasterClock.objStrServerLoading.innerHTML	=objReality.intMaxLoadingTime+'/'+objReality.intLoadingTime+'/'+objPlayer.intLoadingDuration;
+					if(!objPlayer.bIzNeedToBeStoppedEvent)
+						{
+						//objPlayer.objAudio.load();
+						}
+					objPlayer.intLoadingDuration++;
+					//objPlayer.bIzLoading=false;
+					}
+				else
+					{
+					objPlayer.strPlayerLoadingAnim	='';
+					}
+				if(objReality.bIzLoading)
+					{
+					objIndicatorMasterClock.objStrServerLoading.innerHTML	=objReality.intMaxLoadingTime+'/'+objReality.intLoadingTime;
+					if(objReality.intLoadingTime>=objReality.intMaxLoadingTime)
+						{
+						objReality.intMaxLoadingTime=objReality.intLoadingTime;
+						}
+					objReality.intLoadingTime++;
+					}
+				//if(objPlayer.bIzError)
+				//	{
+				//	}
+				if(objEDRO.intVector==2)
+					{
+					console.log('[=^Vvv]EDRO.Event: (objEDRO.intVector==2)');
+					console.log(objEDRO.intStep);
+					objEDRO.intVector	=0;
+					objDesign._UpdateDimensions();
+					console.log('[[=^...]EDRO.Event: (objEDRO.intVector==2)');
+					}
+				if(objKIIM_StatisticalMembrane.bIzRunning==true)
+					{
+					objKIIM_StatisticalMembrane._incTime();
+					}
+				objIndicatorMasterClock.objStr.innerHTML	=objEDRO.intStep++;
+				objEDRO.intVector++;
+				objEDRO._CircleControllerGraph;
+				return 0;
 				}
-			}
-		console.log('[.]EDRO.Objects: Declare');
+			console.log('[.]EDRO.O: Declare');
 		</script>
-oo2oo;
+oо2оo;
 		return $str;
 		}
 	}

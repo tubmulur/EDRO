@@ -40,5 +40,6 @@ int1_name*(int0_name+1)       =int1_result; <br/>
 # Это гениально! Экономит миллионы лет, на любом языке программирования и просто в устном счёте.
 
 # Благословенный.RCe.Framework Precision 0_1 math!
+# PM01
 
 #   Автор: A.A.Chekmarev: assminog@gmail.com. 

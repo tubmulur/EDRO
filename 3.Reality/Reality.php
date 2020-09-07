@@ -34,7 +34,7 @@ class Reality extends Objects
 		
 		$this->arrReality['strListnersPath']		='/home/EDRO.o2o/Listeners/';
 
-								  ЗапомнитьСлушателя::_ЛокалОблако($objKIIM, $this->arrReality['strListnersPath'], $this->arrEvent['arrParams']['style']);
+								  ЗапомнитьСлушателя::_ЛокалОблако($objKIIM, $this->arrReality['strListnersPath'], $this->arrEvent['arrParams']['strStyle']);
 		$this->arrReality['arrCurrentListeners']	=ПрочитатьСлушателей::м($objKIIM, $this->arrReality['strListnersPath']);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +42,9 @@ class Reality extends Objects
 		$this->arrReality['strRoleSignal']		='Listener';
 		$this->arrReality['strRoleLangSignal']		=rmLb(FileRead::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->arrReality['strRoleSignal'].'/.strLang.php'));
 		$this->arrReality['strLangSignal']		=strGetDefaultLanguage();
+		/*print_r($_SESSION);
+		print_r($this->arrReality);
+		exit(0);*/
 		?>
 		<script charset="utf-8">
 			var strSignalRole	="<?=$this->arrReality['strRoleLangSignal']?>";
@@ -194,14 +197,14 @@ oo2oo;
 					console.log('[Vv]EDRO.Reality: Construct');
 					//this.arrParamG0.
 					//this.strParams		='';
-					this.intLoadingTime	=0;
-					this.intMaxLoadingTime	=0;
-					this.bIzError		=false;
-					this.bIzLoading		=false;
-					this.bIzHistory		=false;
-					this.bIzPlayer		=false;
-					this.bIzDynaScreen	=false;
-					this.bIzCheckMaNet	=false;
+					this.intLoadingTime		=0;
+					this.intMaxLoadingTime		=0;
+					this.bIzError			=false;
+					this.bIzLoading			=false;
+					this.bIzHistory			=false;
+					this.bIzPlayer			=false;
+					this.bIzDynaScreen		=false;
+					this.bIzCheckMaNet		=false;
 					console.log('[..]EDRO.Reality: Construct');
 					}
 				}

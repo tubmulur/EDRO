@@ -62,10 +62,8 @@ oo2oo;
 				constructor()
 					{
 					console.log('[Vv]EDRO.Design: Construct');
-					this._UpdateDimensions();
-
-
-
+					//objEvent._CreateParamsArr();
+					//this._UpdateDimensions();
 					//objSearch.onPage		=this.intTotalElements;
 					//objSearch.strEvent		='';
 					//objSearch._CreateUrl();
@@ -89,11 +87,8 @@ oo2oo;
 						this.intElementHeight	=90;
 						this.intElementWidth	=410;
 						}
-					
-					
 					this.intScreenWidth	=objDynaScreen.intWidth;
 					this.intScreenHeight	=(objDynaScreen.intHeight-120);
-
 					this.intWidthElements	=Math.floor(this.intScreenWidth/this.intElementWidth);
 					if(this.intWidthElements<1)
 						{
@@ -101,13 +96,11 @@ oo2oo;
 						this.intWidthElements=1;
 						console.log('[...]EDRO.Design: intWidthElements<=1');
 						}
-
 					this.intHeightElements	=Math.floor(this.intScreenHeight/100);
 					if(this.intHeightElements<1)
 						{
 						this.intHeightElements=1;
 						}
-
 					this.intTotalElements	=this.intWidthElements*this.intHeightElements;
 					if(this.intTotalElements<1)
 						{
@@ -116,17 +109,17 @@ oo2oo;
 						console.log('[...]EDRO.Design: intTotalElements<=1');
 						}
 					objIndicatorDimensions.objStr.innerHTML	=this.intScreenWidth+'x'+this.intScreenHeight+'<br/>V'+this.intWidthElements+':H'+this.intHeightElements+':T'+this.intTotalElements;
-					if(objEvent.arrParams.onPage!=this.intTotalElements)
+					if(objEvent.arrParams.int1OnPage!=this.intTotalElements)
 						{
-						objEvent.arrParams.onPage			=this.intTotalElements;
+						objEvent.arrParams.int1OnPage				=this.intTotalElements;
 						objEvent._UpdateURLDyn();
-						objIndicatorDimensions.objStr.style.backgroundColor='red';
-						objIndicatorDimensions.objStr.style.color='#FFF';
+						objIndicatorDimensions.objStr.style.backgroundColor	='red';
+						objIndicatorDimensions.objStr.style.color		='#FFF';
 						}
 					else
 						{
-						objIndicatorDimensions.objStr.style.backgroundColor='';
-						objIndicatorDimensions.objStr.style.color='';
+						objIndicatorDimensions.objStr.style.backgroundColor	='';
+						objIndicatorDimensions.objStr.style.color		='';
 						}
 					}
 				}

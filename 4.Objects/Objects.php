@@ -26,15 +26,22 @@ class Objects
 	{
 	public function __construct($_objKIIM)
 		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__,'_strMethod'=>__FUNCTION__, '_strMessage'=>'', '_objCurrent'=>'', '_intShowTempo'=>'' ));
-
-		//$strSearchName		=сПреобразовать(mb_strtolower(trim($this->arrEvent['arrParams']['strName'])),	'вКоманду');
+		//echo '<pre>';
+		//print_r($this);
+		//echo '</pre>';
+		//exit;
+		//$strSearchName		=сПреобразовать(mb_strtolower(trim($this->arrEvent['arrParams']['strName'])),'вКоманду');
 		$strSearchName		='';
-		$strSearchStyle		=mb_strtolower(trim($this->arrEvent['arrParams']['strStyle']));
+		$strSearchStyle		=сПреобразовать(str_replace("\'","'", mb_strtolower(trim($this->arrEvent['arrParams']['strStyle']))),'вКоманду');
 
-		$strSearchBitrate	=mb_strtolower(trim($this->arrEvent['arrParams']['intBitrate']));
-		$strSearchCodec		=mb_strtolower(trim($this->arrEvent['arrParams']['strCodec']));
-		$сРасположениеКорень	='/home/ЕДРО:ПОЛИМЕР/020.Синтез.ЕДРО/020.Если/020.Действие/020.Реальность/020.Объект/Чтение_Диск/БазаДанных/HiFiIntelligentClub';
-		
+		$strSearchBitrate	=сПреобразовать(str_replace("\'","'", mb_strtolower(trim($this->arrEvent['arrParams']['intBitrate']))),'вКоманду');
+		if($strSearchBitrate===0)
+			{
+			$strSearchBitrate='';
+			}
+		$strSearchCodec		=сПреобразовать(str_replace("\'","'", mb_strtolower(trim($this->arrEvent['arrParams']['strCodec']))),'вКоманду');
+		//$сРасположениеКорень	='/home/ЕДРО:ПОЛИМЕР/020.Синтез.ЕДРО/020.Если/020.Действие/020.Реальность/020.Объект/Чтение_Диск/БазаДанных/HiFiIntelligentClub';
+		$сРасположениеКорень	='/home/ЕДРО:ПОЛИМЕР/БазаДанных/HiFiIntelligentClub';
 		if(empty($strSearchStyle))
 			{
 			$strSearchPath	='/Stations/unordered';
@@ -72,7 +79,7 @@ class Objects
 					}
 				else
 					{
-					$strSearchPath	.='/server_type/unordered/'.$strSearchCodec.'/unordered';
+					$strSearchPath	.='/'.$strSearchCodec.'/unordered';
 					}
 				}
 			else
@@ -83,7 +90,7 @@ class Objects
 					}
 				else
 					{
-					$strSearchPath.='/server_type/unordered/'.$strSearchCodec.'/unordered';
+					$strSearchPath.='/'.$strSearchCodec.'/unordered';
 					}
 				}
 			};
@@ -91,7 +98,10 @@ class Objects
 		$this->arrObjects['сРасположение']		=$сРасположениеКорень.$strSearchPath;
 		$this->arrObjects['сРасположениеTotal']		=$this->arrObjects['сРасположение'].'/total.plmr';
 		$this->arrObjects['мРасположение']		=Pagination::arr($objKIIM, $this);
-
+		/*echo '<pre>';
+		print_r($this);
+		echo '</pre>';
+		exit;*/
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
 	public static function strObjectInit()
@@ -116,7 +126,7 @@ oо2оo;
 				var objDate	=new Date();
 				if(objPlayer.bIzPlaying) //!!!    objReality.bIzPlayerPlaying!!!
 					{
-					document.title	=objPlayer.strStationName+'HiFiIntelligentClub.com';
+					document.title	=objPlayer.strStationName+'|HiFiIntelligentClub.com';
 					//objPlayer.objVisibleControlsPlayingDuration.innerHTML=objPlayer.intPlayingDuration;
 					objPlayer.intPlayingDuration++;
 					}
@@ -130,7 +140,7 @@ oо2оo;
 						}
 					objPlayer.intPlayerLoadingAnim++;
 					objPlayer.strPlayerLoadingAnim	+='.';
-					document.title	=objPlayer.strPlayerLoadingAnim+objPlayer.strStationName+'.HiFiIntelligentClub.com';
+					document.title	=objPlayer.strPlayerLoadingAnim+objPlayer.strStationName+'|HiFiIntelligentClub.com';
 					objIndicatorMasterClock.objStrServerLoading.innerHTML	=objReality.intMaxLoadingTime+'/'+objReality.intLoadingTime+'/'+objPlayer.intLoadingDuration;
 					if(!objPlayer.bIzNeedToBeStoppedEvent)
 						{

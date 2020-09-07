@@ -16,10 +16,10 @@ Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
 Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
 |E    |D     |R      |O      |
 |Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
+ ////// 2020                   /////  /
 //        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
+//      <  **>               /// /    
+ //////   jl                ///// /   
 ./././././././*/
 class Event extends Design
 	{
@@ -65,6 +65,8 @@ class Event extends Design
 			'strEventEDRO_URL'		=>'',
 			);*/
 		}
+
+
 	private function bIsDynamic()
 		{
 		$bIsDynamic	=false;
@@ -78,11 +80,22 @@ class Event extends Design
 		{
 		$str	=<<<oо2оo
 		<script>
-			console.log('[V]EDRO.Event: Declare');
+			console.log('[V]EDRO.Event: Init');
 			var objEvent=new Event();
-			console.log('[.]EDRO.Event: Declare');
+			console.log('[.]EDRO.Event: Init');
 		</script>
 oо2оo;
+		return $str;
+		}
+	public function strParamsInit()
+		{
+		
+		$str='<script>';
+			$str.='console.log(\'[V]EDRO.Event: strParamsInit()\');';
+			//$str.='objEvent.arrParams={"strOne":"1234"};';
+			$str.=rmlb($this->arrEvent['strObjectParams']);
+			$str.='console.log(\'[.]EDRO.Event: strParamsInit()\');';
+		$str.='</script>';
 		return $str;
 		}
 	public static function strObjectDeclare()
@@ -101,7 +114,7 @@ oо2оo;
 					this.strURL		='';
 					this.strURLDyn		='';
 					this.arrParams		=[];
-					this.arrParams={
+					/*this.arrParams={
 						'strPlayingStationId'	:'',
 						'strName'		:'',
 						'strStyle'		:'',
@@ -110,7 +123,7 @@ oо2оo;
 						'int0Page'		:0,
 						'int1OnPage'		:3,
 						'int0PlayingStationNum'	:0,
-						};
+						};*/
 					this.strParams		='';
 					//console.log(this.arrParams);
 					this.objNav		={'HFIC':'ICQR'};
@@ -287,6 +300,13 @@ oо2оo;
 					objEvent.objXHR.open('POST', objEvent.strURLDyn);
 					objEvent.objXHR.send();
 					console.log('[..]EDRO.Objects: _Update()'+objEvent.strURL);//objObjects->objEvent4
+					}
+				_ActualizeSearch()
+					{
+					objSearch.objValueInputstrName.value	=this.arrParams['strName'];
+					objSearch.objValueInputstrStyle.value	=this.arrParams['strStyle'];
+					objSearch.objValueInputintBitrate.value	=this.arrParams['intBitrate'];
+					objSearch.objValueInputstrCodec.value	=this.arrParams['strCodec'];
 					}
 				/*_PlayStation(strPlayerId)
 					{

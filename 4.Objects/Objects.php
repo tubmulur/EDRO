@@ -44,53 +44,53 @@ class Objects
 		$сРасположениеКорень	='/home/ЕДРО:ПОЛИМЕР/БазаДанных/HiFiIntelligentClub';
 		if(empty($strSearchStyle))
 			{
-			$strSearchPath	='/Stations/unordered';
-			if(empty($strSearchBitrate))
-				{
+/*-S*/		/*-S*/	$strSearchPath	='/Stations/unordered';
+	/*-B*/		if(empty($strSearchBitrate))
+		/*-C*/	/*-B*/	{
 				if(empty($strSearchCodec))
+/*-S*/				/*-C*/	{
+	/*-B*/				}
+		/*+C*/		else
 					{
-					}
-				else
-					{
-					$strSearchPath	='/server_type/unordered';
-					}
-				}
+/*-S*/				/*+C*/	$strSearchPath	='/server_type/unordered'.'/'.$strSearchCodec.'/unordered';
+	/*+B*/				}
+		/*-C*/		}
 			else
-				{
-				$strSearchPath	='/bitrate/unordered';
-				$strSearchPath.='/'.$strSearchBitrate.'/unordered';
+/*-S*/			/*+B*/	{
+	/*+B*/			$strSearchPath	='/bitrate/unordered';
+		/*+C*/		$strSearchPath.='/'.$strSearchBitrate.'/unordered';
 				if(empty($strSearchCodec))
-					{
+				/*-C*/	{
 					}
 				else
-					{
-					$strSearchPath.='/server_type/unordered';
+				/*+C*/	{
+					//$strSearchPath.='/server_type/unordered';
 					$strSearchPath.='/'.$strSearchCodec.'/unordered';
 					}
 				}
 			}
 		else
-			{
-			$strSearchPath	='/genre/unordered/'.$strSearchStyle.'/unordered';
-			if(empty($strSearchBitrate))
-				{
-				if(empty($strSearchCodec))
-					{
+/*+S*/		/*+S*/	{
+	/*-B*/		$strSearchPath	='/genre/unordered/'.$strSearchStyle.'/unordered';
+		/*-C*/	if(empty($strSearchBitrate))
+/*+S*/			/*-B*/	{
+	/*-B*/			if(empty($strSearchCodec))
+		/*+C*/		/*-C*/	{
+					}
+/*+S*/				else
+	/*+B*/				{
+		/*-C*/		/*+C*/	$strSearchPath	.='/'.$strSearchCodec.'/unordered';
+					}
+/*+S*/				}
+	/*+B*/		else
+		/*+C*/		{
+			$strSearchPath.='/'.$strSearchBitrate.'/unordered';
+			if(empty($strSearchCodec))
+				/*-C*/	{
 					}
 				else
 					{
-					$strSearchPath	.='/'.$strSearchCodec.'/unordered';
-					}
-				}
-			else
-				{
-				$strSearchPath.='/bitrate/unordered'.$strSearchBitrate.'/unordered';
-				if(empty($strSearchCodec))
-					{
-					}
-				else
-					{
-					$strSearchPath.='/'.$strSearchCodec.'/unordered';
+				/*+C*/	$strSearchPath.='/'.$strSearchCodec.'/unordered';
 					}
 				}
 			};
@@ -98,10 +98,10 @@ class Objects
 		$this->arrObjects['сРасположение']		=$сРасположениеКорень.$strSearchPath;
 		$this->arrObjects['сРасположениеTotal']		=$this->arrObjects['сРасположение'].'/total.plmr';
 		$this->arrObjects['мРасположение']		=Pagination::arr($objKIIM, $this);
-		/*echo '<pre>';
-		print_r($this);
-		echo '</pre>';
-		exit;*/
+		//echo '<pre>';
+		//print_r($this);
+		//echo '</pre>';
+		//exit;
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
 	public static function strObjectInit()

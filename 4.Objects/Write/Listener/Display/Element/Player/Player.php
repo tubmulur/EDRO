@@ -609,6 +609,7 @@ class Player
 					height		:20px;
 					text-align	:center;
 					line-height	:19px;
+					font-size	:small;
 					background-color:green;
 					"
 				>'.
@@ -1021,8 +1022,8 @@ oo2oo;
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
 					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled-> .load()<br/>';
 					//objKIIM_StatisticalMembrane._error();
-					//objPlayer.objAudio.load();//--
-					objPlayer.objAudio.play(); //++n
+					objPlayer.objAudio.load();//--
+					//objPlayer.objAudio.play(); //++n
 					this.bIzLoading=true;
 					console.log('[...]EDRO.Objects.Player: objAudio.onstalled');
 					}

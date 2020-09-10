@@ -62,6 +62,9 @@ oo2oo;
 				constructor()
 					{
 					console.log('[Vv]EDRO.Design: Construct');
+					this.intBodyHeight;
+					this.intBodyWidth;
+					this.objStationsOnPage;
 					//objEvent._CreateParamsArr();
 					//this._UpdateDimensions();
 					//objSearch.onPage		=this.intTotalElements;
@@ -75,6 +78,8 @@ oo2oo;
 					}
 				_UpdateDimensions()
 					{
+					this.intBodyHeight	=document.body.offsetHeight;
+					this.intBodyWidth	=document.body.offsetWidth;
 					objDynaScreen._GetDimensions();
 					this.objElement		=document.getElementsByTagName('station')[0];
 					if(typeof(this.objElement)=='object')
@@ -121,6 +126,16 @@ oo2oo;
 						objIndicatorDimensions.objStr.style.backgroundColor	='';
 						objIndicatorDimensions.objStr.style.color		='';
 						}
+					}
+				_CheckElements()
+					{
+					console.log('[Vvv]EDRO.Design: checkElements');
+					objDesign.objStationsOnPage	=document.getElementsByTagName('station');
+					if(objDesign.objStationsOnPage['length']==0)
+						{
+						}
+					//console.log(objDesign.objStationsOnPage['length']);
+					console.log('[...]EDRO.Design: checkElements');
 					}
 				}
 			console.log('[.]EDRO.Design: Declare');

@@ -129,10 +129,13 @@ oо2оo;
 					this.objNav		={'HFIC':'ICQR'};
 					this._SetLanguageMood();
 					this._SetRoleSignal();
-					/*window.onpopstate=function(event)
+					window.onpopstate=function(event)
 						{
+						console.log('[Vvv]EDRO.Event: onpopstate');
+						objEvent._CreateParamsArr(event);
+						alert('Browser nav'+event.href);
 						console.log('[...]EDRO.Event: onpopstate');
-						}*/
+						}
 					this.objXHR.onload		=function()
 						{
 						console.log('[Vvv]EDRO.Event: objXHR.onload');
@@ -239,9 +242,11 @@ oо2оo;
 					objEvent._Request();			//objObjects->objEvent
 					console.log('[..]EDRO.Objects: _CheckMaNet()');
 					}
-				_CreateParamsArr()
+				_CreateParamsArr(obj)
 					{
-					objEvent.arrParams	=document.location.search.substr(1).split('&');
+					console.log(obj.location.search.substr(1).split('&'));
+
+					//objEvent.arrParams	=obj.location.search.substr(1).split('&');
 					}
 				_CreateParamsStr()
 					{

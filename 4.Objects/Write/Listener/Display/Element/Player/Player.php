@@ -59,14 +59,14 @@ class Player
 					<recordLabel
 						class="block border"
 						style="
-							/*background-color: #282828;*/
-							/*background-color: #FFF;*/
+							background-color: #282828;
+							color		: #FFF;
 							/*border-radius	: 100%;*/
 							font-size	: small;
 							width		: 32px;
 							height		: 32px;
 							text-align	: center;
-							line-height	: 31px;
+							line-height	: 30px;
 							margin		: 0;
 							padding		: 0;
 							"
@@ -856,7 +856,7 @@ oo2oo;
 
 
 					console.log('[Vvv]EDRO.Objects.Player: objAudio.load()');
-					//objPlayer.objAudio.load(); //++ New - 30.08.2020 //--
+					objPlayer.objAudio.load(); //++ New - 30.08.2020 //--
 					this.bIzLoading=true;
 					console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.load()');
 					console.log('[...]EDRO.Objects.Player: onEnded()');
@@ -939,9 +939,7 @@ oo2oo;
 					if(objPlayer.objPlayingBlock)
 						{
 						console.log('[Vvvv]EDRO.Objects.Player: objPlayingBlock');
-						objPlayer.objPlayingBlock.classList.remove('loadingAudio');
-						objPlayer.objPlayingBlock.classList.remove('playing');
-						objPlayer.objPlayingBlock.classList.remove('overload');
+
 
 						if(objPlayer.bIzNeedToBeStoppedEvent)
 							{
@@ -950,6 +948,7 @@ oo2oo;
 							console.log('[Vvvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
 							objPlayer.objPlayingBlock.classList.remove('errorAudio');
 							objPlayer.objVisibleControls.className	+=' stopped';
+							objPlayer.stop();
 							objKIIM_StatisticalMembrane._stop();
 							objPlayer.bIzNeedToBeStoppedEvent	=false;
 							console.log('[Vvvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=false');
@@ -963,10 +962,21 @@ oo2oo;
 							//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.objPlayingBlock<br/>';
 							//objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=false-><br/>';
 							console.log('[Vvvvv]EDRO.Objects.Player: !bIzNeedToBeStoppedEvent?');
-							objPlayer.objPlayingBlock.className	+=' errorAudio';
+							if(objPlayer.bIzPlaying==false)
+								{
+								objPlayer.objPlayingBlock.className	+=' errorAudio';
+								}
+							else
+								{
+								objPlayer.objAudio.load();//++
+								}
 							console.log('[.....]EDRO.Objects.Player: !bIzNeedToBeStoppedEvent?');
+							//return true;
 							//objKIIM_StatisticalMembrane._error();
 							}
+						objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+						objPlayer.objPlayingBlock.classList.remove('playing');
+						objPlayer.objPlayingBlock.classList.remove('overload');
 						console.log('[....]EDRO.Objects.Player: objPlayingBlock');
 						}
 					if(objPlayer.bIzNeedToBeStoppedEvent)
@@ -980,8 +990,13 @@ oo2oo;
 						//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError<br/>';
 						//objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=false; was true flag-><br/>';
 						objKIIM_StatisticalMembrane._stop();
+						objPlayer.stop();
 						console.log('[====]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
 						return true;
+						}
+					else
+						{
+						//objPlayer.objAudio.load();//++
 						}
 
 					objKIIM_StatisticalMembrane._error();

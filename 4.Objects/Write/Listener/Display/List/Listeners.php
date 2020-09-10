@@ -12,9 +12,10 @@ class Listeners
 		{
 		$objKIIM=$_objKIIM;
 		   unset($_objKIIM);
-		//print_r($_мСлушатели);
+	
 		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 
+		$мСлушатели	=$_мСлушатели;
 		$мСлушатели5Мин	=$_мСлушатели['мСлушателиЗаПятьМинут'];
 		           unset($_мСлушатели);
 		$this->strHTML='
@@ -25,12 +26,24 @@ class Listeners
 					Width		:100%;
 					height		:20px;
 					"
-				>';
+				>
+				<listeners5mins class="TC3 BC3">'.
+				$мСлушатели['чСлушателиЗаПятьМинут'].
+				'<listeners5mins>'.
+				'/'.
+				'<listeners24hours class="TC3 BC3">'.
+				$мСлушатели['чСлушателиЗа24Часа'].
+				'</listeners24hours>'.
+				'/'.
+				'<listenersSome class="TC3 BC3">'.
+				$мСлушатели['чСлушателиВсегоЗаписей'].
+				'</listenersSome>'.
+				':';
 		foreach($мСлушатели5Мин as $чСлушательИД=>$мСлушательПараметры)
 			{
 			$this->strHTML.='
 				<activeListener 
-					class="block left BRJ BRL" 
+					class="block left BRJ BRL BC1 TC1" 
 					style="
 						height:20px;
 						"

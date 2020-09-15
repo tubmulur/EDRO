@@ -42,9 +42,9 @@ class Reality extends Objects
 		$this->arrReality['strRoleSignal']		='Listener';
 		$this->arrReality['strRoleLangSignal']		=rmLb(FileRead::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->arrReality['strRoleSignal'].'/.strLang.php'));
 		$this->arrReality['strLangSignal']		=strGetDefaultLanguage();
-		/*print_r($_SESSION);
-		print_r($this->arrReality);
-		exit(0);*/
+		//print_r($_SESSION);
+		//print_r($this->arrReality);
+		//exit(0);
 		?>
 		<script charset="utf-8">
 			var strSignalRole	="<?=$this->arrReality['strRoleLangSignal']?>";
@@ -195,12 +195,16 @@ oo2oo;
 				constructor()
 					{
 					console.log('[Vv]EDRO.Reality: Construct');
+					this.arrPlayer		=[];
+					this.arrPlayer.bIzLoading	=false;
+					this.arrPlayer.bIzPlaying	=false;
 					//this.arrParamG0.
 					//this.strParams		='';
 					this.intLoadingTime		=0;
 					this.intMaxLoadingTime		=0;
 					this.bIzError			=false;
 					this.bIzLoading			=false;
+					//this.bIzPlaying			=false;
 					this.bIzHistory			=false;
 					this.bIzPlayer			=false;
 					this.bIzDynaScreen		=false;

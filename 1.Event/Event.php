@@ -32,10 +32,10 @@ class Event extends Design
 		
 		$this->arrEvent['bIsDynamic']	=$this->bIsDynamic();
 		$this->arrEvent['strObjectParams']='objEvent.arrParams={'.strArrayRec2JS($this->arrEvent, 'arrParams').'};';
-		/*echo '<pre>';
-		print_r($this->arrEvent);
-		echo '</pre>';
-		exit;*/
+		//echo '<pre>';
+		//print_r($this->arrEvent);
+		//echo '</pre>';
+		//exit;
 		//Event::strObjectDeclare();
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		parent::__construct($objKIIM);
@@ -129,47 +129,46 @@ oо2оo;
 					this.objNav		={'HFIC':'ICQR'};
 					this._SetLanguageMood();
 					this._SetRoleSignal();
+
 					window.onpopstate=function(event)
 						{
 						console.log('[Vvv]EDRO.Event: onpopstate');
-						objEvent._CreateParamsArr(event);
-						alert('Browser nav'+event.href);
+						objEvent._GoBack(event.target.location);
 						console.log('[...]EDRO.Event: onpopstate');
 						}
-					this.objXHR.onload		=function()
+					this.objXHR.onload	=function()
 						{
-						console.log('[Vvv]EDRO.Event: objXHR.onload');
+						console.log('[Vvv]EDRO.Objects: objXHR.onload');
 						if(objEvent.objXHR.status==200)
-							{
-							//objDesign._UpdateDimensions();
-							objEvent.objXHR.response;
+							{	
 							if(objReality.bIzPlayer)
 								{
 								//console.log(objObjects.objXHR.response);
 								var strAudio 		= JSON.parse(objEvent.objXHR.response);
-								//alert(strAudio);
+								//strAudio
 								objPlayer.objAudio.src	=strAudio;
-								objPlayer.objAudio.load();
+								objPlayer.objAudio.play();
+								//objPlayer.objAudio.load();
 								//objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
 								objReality.bIzPlayer		=false;
 								objReality.bIzLoading		=false;
 								//alert('ok');
 								}
-							if(objReality.bIzDynaScreen)
+							/*if(objReality.bIzDynaScreen)
 								{
 								objDynaScreen.objHTML.innerHTML	=objEvent.objXHR.response;
 								objReality.bIzHistory		=false;
 								objReality.bIzDynaScreen	=false;
 								objReality.bIzLoading		=false;
-								}
+								}*/
 							if(objReality.bIzCheckMaNet)
 								{
 								objReality.bIzCheckMaNet	=false;
 								}
 							objReality.bIzPlayer		=false;
-							objReality.bIzLoading		=false;
+							//objReality.bIzLoading		=false;
 							objReality.bIzHistory		=false;
-							objReality.bIzDynaScreen	=false;
+							//objReality.bIzDynaScreen	=false;
 							objReality.bIzCheckMaNet	=false;
 							objPlayer.updateOnReload();
 							objDynaScreenEventIndicator.objHTML.style.display="none";
@@ -177,30 +176,29 @@ oо2оo;
 						else
 							{
 							objReality.bIzPlayer		=false;
-							objReality.bIzLoading		=false;
+							//objReality.bIzLoading		=false;
 							objReality.bIzHistory		=false;
-							objReality.bIzDynaScreen	=false;
 							objReality.bIzCheckMaNet	=false;
 							objDynaScreenEventIndicator.objHTML.style.display="none";
 							}
-						console.log('[...]EDRO.Event: objXHR.onload');
+						console.log('[...]EDRO.Objects: objXHR.onload');
 						}
 					this.objXHR.onProgress		=function(event)
 						{
-						console.log('[Vvv]EDRO.Event: objXHR.onProgress');
+						console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
 						if(event.lengthComputable)
 							{
 							//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
 							}
-						else
+	    					else
 							{
 							//console.log('Получено'+event.loaded+'байт');
-							}
-						console.log('[...]EDRO.Event: objXHR.onProgress');
+								}
+						console.log('[...]EDRO.Objects: objXHR.onProgress');
 						}
 					this.objXHR.onError=function()
 						{
-						console.log('[Vvv]EDRO.Event: objXHR.onError');
+						console.log('[Vvv]EDRO.Objects: objXHR.onError');
 						objReality.bIzLoading		=false;
 						objReality.bIzPlayer		=false;
 						objReality.bIzDynaScreen	=false;
@@ -208,9 +206,9 @@ oо2оo;
 						objReality.bIzError		=true;
 						
 						objDynaScreenEventIndicator.objHTML.style.display="none";
-						console.log('[...]EDRO.Event: objXHR.onError');
+						console.log('[...]EDRO.Objects: objXHR.onError');
 						}
-					console.log('[..]EDRO.Event: Constructor');
+						console.log('[..]EDRO.Event: Constructor');
 					}
 				_PlayStation(strPlayerId)
 					{
@@ -223,7 +221,7 @@ oо2оo;
 					}
 				_Search()
 					{
-					console.log('[Vv]EDRO.Objects: _Search()');
+    					console.log('[Vv]EDRO.Objects: _Search()');
 					objReality.bIzDynaScreen		=true;
 					objEvent.strEvent			='/Search';
 					objEvent.arrParams.page			=0;
@@ -242,11 +240,19 @@ oо2оo;
 					objEvent._Request();			//objObjects->objEvent
 					console.log('[..]EDRO.Objects: _CheckMaNet()');
 					}
-				_CreateParamsArr(obj)
+				_GoBack(obj)
 					{
-					console.log(obj.location.search.substr(1).split('&'));
-
-					//objEvent.arrParams	=obj.location.search.substr(1).split('&');
+					console.log('[Vv]EDRO.Objects: _CreateParamsArr(obj)');
+					objReality.bIzHistory		=false;
+					objReality.bIzLoading		=true;
+					objReality.bIzDynaScreen	=true;
+					objReality.intLoadingTime	=0;
+					objEvent.strURL			=obj.pathname+'?'+obj.search.substr(1);
+					objEvent.strURLDyn		=objEvent.strURL+'&d=1';//objObjects->objEvent
+					objDynaScreenEventIndicator.objHTML.style.display	="block"; 
+					objEvent.objXHR.open('POST', objEvent.strURLDyn);
+					objEvent.objXHR.send();
+					console.log('[..]EDRO.Objects: _CreateParamsArr(obj)');
 					}
 				_CreateParamsStr()
 					{
@@ -255,6 +261,8 @@ oо2оo;
 					objEvent.strParams		='';
 					Object.keys(objEvent.arrParams).forEach(function(strKey)
 						{
+						objEvent.arrParams[strKey]	=encodeURIComponent(objEvent.arrParams[strKey]);
+						//alert(objEvent.arrParams[strKey]);
 						objEvent.strParams	+='&'+strKey+'='+objEvent.arrParams[strKey];
 						});
 					objEvent.strParams		=objEvent.strParams.substr(1);
@@ -290,7 +298,7 @@ oо2оo;
 				_UpdateURLDyn() //objObjects->objEvent 
 					{//(CAUTION!!!:Inside of updating object must be information of EDRO DESIGN MATRIX position!!)
 					//    //  ///  Don't create functions with declareddestination of the request!! 06.08.2020 ChekMaNet
-					console.log('[Vv]EDRO.Objects: _Update()'+objEvent.strURL);//objObjects->objEvent
+					console.log('[Vv]EDRO.Objects: objDynaScreen objXHR.send()'+objEvent.strURL);//objObjects->objEvent
 					
 					objReality.bIzHistory					=true;
 					objReality.bIzLoading					=true;
@@ -302,55 +310,17 @@ oо2оo;
 						{
 						history.pushState(objEvent.objNav, objEvent.strEvent, objEvent.strURL);
 						}
-					objEvent.objXHR.open('POST', objEvent.strURLDyn);
-					objEvent.objXHR.send();
-					console.log('[..]EDRO.Objects: _Update()'+objEvent.strURL);//objObjects->objEvent4
+					objDynaScreen.objXHR.open('POST', objEvent.strURLDyn);
+					objDynaScreen.objXHR.send();
+					console.log('[..]EDRO.Objects: objDynaScreen objXHR.send()'+objEvent.strURL);//objObjects->objEvent4
 					}
 				_ActualizeSearch()
 					{
-					objSearch.objValueInputstrName.value	=this.arrParams['strName'];
-					objSearch.objValueInputstrStyle.value	=this.arrParams['strStyle'];
+					objSearch.objValueInputstrName.value	=decodeURIComponent(this.arrParams['strName']);
+					objSearch.objValueInputstrStyle.value	=decodeURIComponent(this.arrParams['strStyle']);
 					objSearch.objValueInputintBitrate.value	=this.arrParams['intBitrate'];
 					objSearch.objValueInputstrCodec.value	=this.arrParams['strCodec'];
 					}
-				/*_PlayStation(strPlayerId)
-					{
-					}
-				_CreateURL()
-					{
-					}
-				_CheckMaNet()
-					{
-					}
-				_CreateURLDyn()
-					{
-					}
-				_CreateParamsStr()
-					{
-					}
-				_GetDimensions()
-					{
-					}
-				_PageTransformation()
-					{
-					}
-				_Request()
-					{
-					}
-				_Search()
-					{
-					}
-				_Send()
-					{
-					}
-				_UpdateDimensions()
-					{
-					}
-				_Push()
-					{
-					history.pushState(this.objNav, 'Hfic', objReality.strURL);
-					}
-				*/
 				_SetLanguageMood()
 					{
 					console.log('[Vv]EDRO.Reality: Master Mood SET  _SetLanguageMood');
@@ -364,6 +334,7 @@ oо2оo;
 					this.objRoleSignal.innerHTML	=strSignalRole;
 					console.log('[..]EDRO.Reality: Master Mood SET  _SetRoleSignal()');
 					}
+
 				/*_Send()
 					{
 					console.log('[Vv]EDRO.Event: _Send.');

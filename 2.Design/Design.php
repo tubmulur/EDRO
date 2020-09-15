@@ -97,9 +97,9 @@ oo2oo;
 					this.intWidthElements	=Math.floor(this.intScreenWidth/this.intElementWidth);
 					if(this.intWidthElements<1)
 						{
-						console.log('[Vvv]EDRO.Design: intWidthElements<=1');
+					//	console.log('[Vvv]EDRO.Design: intWidthElements<=1');
 						this.intWidthElements=1;
-						console.log('[...]EDRO.Design: intWidthElements<=1');
+					//	console.log('[...]EDRO.Design: intWidthElements<=1');
 						}
 					this.intHeightElements	=Math.floor(this.intScreenHeight/100);
 					if(this.intHeightElements<1)
@@ -109,9 +109,9 @@ oo2oo;
 					this.intTotalElements	=this.intWidthElements*this.intHeightElements;
 					if(this.intTotalElements<1)
 						{
-						console.log('[Vvv]EDRO.Design: intTotalElements<=1');
+					//	console.log('[Vvv]EDRO.Design: intTotalElements<=1');
 						this.intTotalElements=1;
-						console.log('[...]EDRO.Design: intTotalElements<=1');
+					//	console.log('[...]EDRO.Design: intTotalElements<=1');
 						}
 					objIndicatorDimensions.objStr.innerHTML	=this.intScreenWidth+'x'+this.intScreenHeight+'<br/>V'+this.intWidthElements+':H'+this.intHeightElements+':T'+this.intTotalElements;
 					if(objEvent.arrParams.int1OnPage!=this.intTotalElements)

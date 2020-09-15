@@ -79,7 +79,7 @@ class Objects
 
 		if($strSearchPath=='')
 			{
-			$strSearchPath='/Stations/'.$strSearchSuffix;
+			$strSearchPath='/Stations/unordered';
 			}
 
 		$this->arrObjects['сРасположение']		=$сРасположениеКорень.$strSearchPath;
@@ -166,9 +166,32 @@ class Objects
 oо2оo;
 		return $str;
 		}
-	public static function strObjectDeclare()
+	public static function strCopyrightDeclare()
 		{
-		$str	=	<<<oо2оo
+		$str='
+		<copyright
+			id="PageCopyrightTag"
+			class="BC3 TC3 layer_5_Nav"
+			style="
+				position	:fixed;
+				bottom		:0;
+				left		:0;
+				width		:100%;
+				height		:20px;
+				text-align	:center;
+				font-size	:small;
+				"
+			>
+			HiFiIntelligentClub.<?=strGetDomainName()?> © tubmulur@yandex.ru 2020
+		</copyright>
+		<script>
+			var oEl=document.getElementById("PageCopyrightTag");
+		</script>';
+		return $str;
+		}
+	public static function strAudioDeclare()
+		{
+		$str='
 		<audio 
 			id="objHiFiIntelligentClubAudio"
 			style="margin-top:60px;"
@@ -177,7 +200,13 @@ oо2оo;
 			name		="media"
 			>
 			<source src="" type="audio/mpeg"/>
-		</audio>
+		</audio>';
+		return $str;
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=	<<<oо2оo
+
 		<script>
 			console.log('[V]EDRO.O: Declare');
 			objEDRO.funControllerGraph= function()
@@ -192,7 +221,7 @@ oо2оo;
 					}
 				if(objPlayer.bIzLoading||objPlayer.bIzPlaying)
 					{
-					console.log(objPlayer.objAudio.textTracks);
+				//	console.log(objPlayer.objAudio.textTracks);
 					if(objPlayer.objAudio.networkState==1)
 						{
 						objIndicatorNetwork.objStrSrvReady.style.backgroundColor	='yellow';
@@ -274,12 +303,12 @@ oо2оo;
 				//	}
 				if(objEDRO.intVector==2)
 					{
-					console.log('[=^Vvv]EDRO.Event: (objEDRO.intVector==2)');
-					console.log(objEDRO.intStep);
+				//	console.log('[=^Vvv]EDRO.Event: (objEDRO.intVector==2)');
+				//	console.log(objEDRO.intStep);
 					objEDRO.intVector	=0;
 					objDesign._UpdateDimensions();
 					objDesign._CheckElements();
-					console.log('[[=^...]EDRO.Event: (objEDRO.intVector==2)');
+				//	console.log('[[=^...]EDRO.Event: (objEDRO.intVector==2)');
 					}
 				if(objKIIM_StatisticalMembrane.bIzRunning==true)
 					{

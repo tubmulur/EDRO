@@ -42,6 +42,7 @@ class Reality extends Objects
 		$this->arrReality['strRoleSignal']		='Listener';
 		$this->arrReality['strRoleLangSignal']		=rmLb(FileRead::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->arrReality['strRoleSignal'].'/.strLang.php'));
 		$this->arrReality['strLangSignal']		=strGetDefaultLanguage();
+		$this->arrReality['bIzAndroid']			=$this->bIzAndroid();
 		//print_r($_SESSION);
 		//print_r($this->arrReality);
 		//exit(0);
@@ -69,6 +70,17 @@ class Reality extends Objects
 		else
 			{
 			}
+		}
+	private function bIzAndroid()
+		{
+		$bIz=false;
+		$strUserAgent=strtolower($_SERVER['HTTP_USER_AGENT']);
+		if(strpos($strUserAgent, 'android')!==false)
+			{
+			$bIz=true;
+			}
+		return $bIz;
+		return true;
 		}
 	private function _IsDNT()
 		{
@@ -209,6 +221,8 @@ oo2oo;
 					this.bIzPlayer			=false;
 					this.bIzDynaScreen		=false;
 					this.bIzCheckMaNet		=false;
+					this.deviceType			=navigator.userAgent.toLowerCase();
+					this.bIzAndroid			=this.deviceType.indexOf("android")>-1;
 					console.log('[..]EDRO.Reality: Construct');
 					}
 				}

@@ -14,8 +14,11 @@ class StationBlock
 		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		/*echo '<pre>';
 		print_r($arrStatrion);
-		echo '</pre>';*/
-		$intListPosition	=$arrPagination['int0CurrentStation'];
+		echo '</pre>';
+		exit;*/
+
+
+		$strId			=$arrStatrion['strId'];
 		$strName		=$arrStatrion['strName'];
 		$strAudio		=$arrStatrion['strAudio'];
 		$strAudioType		=$arrStatrion['strAudioType'];
@@ -23,6 +26,7 @@ class StationBlock
 		$strStyle		=$arrStatrion['strStyle'];
 					unset($arrStatrion);
 
+		$intListPosition	=$arrPagination['int0CurrentStation'];
 
 		$this->strHTML	='
 		<station
@@ -69,8 +73,10 @@ class StationBlock
 				style="
 					height		:40px;
 					"
-				>'.
-				Genre::strHTML($objKIIM, $strStyle, $arrEventParams, 11).
+				>
+				<bigFingerSupport class="left block" style="width:40px;height:40px;"></bigFingerSupport>
+				'.
+				Tag::strHTML($objKIIM, $strStyle, $arrEventParams, 'strStyle', 11).
 				'
 			</genre>
 			<ICQR_Setup

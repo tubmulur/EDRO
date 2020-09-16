@@ -149,7 +149,7 @@ oо2оo;
 								objPlayer.objAudio.src	=strAudio;
 								objPlayer.objAudio.play();
 								//objPlayer.objAudio.load();
-								//objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
+								objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
 								objReality.bIzPlayer		=false;
 								objReality.bIzLoading		=false;
 								//alert('ok');
@@ -250,8 +250,8 @@ oо2оo;
 					objEvent.strURL			=obj.pathname+'?'+obj.search.substr(1);
 					objEvent.strURLDyn		=objEvent.strURL+'&d=1';//objObjects->objEvent
 					objDynaScreenEventIndicator.objHTML.style.display	="block"; 
-					objEvent.objXHR.open('POST', objEvent.strURLDyn);
-					objEvent.objXHR.send();
+					objDynaScreen.objXHR.open('POST', objEvent.strURLDyn);
+					objDynaScreen.objXHR.send();
 					console.log('[..]EDRO.Objects: _CreateParamsArr(obj)');
 					}
 				_CreateParamsStr()

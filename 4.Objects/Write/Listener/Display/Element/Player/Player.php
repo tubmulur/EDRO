@@ -719,7 +719,8 @@ oo2oo;
 				{
 				console.log('[Vv]EDRO.Objects.Player: Player.constructor()');
 
-				this.objAudio			=document.getElementById("objHiFiIntelligentClubAudio");
+				//this.objAudio			=document.getElementById("objHiFiIntelligentClubAudio");
+				this.objAudio			=document.createElement('audio');
 				this.intPlayerLoadingAnim	=0;
 				this.strPlayerLoadingAnim	=0;
 				this.objStation			='';
@@ -811,7 +812,7 @@ oo2oo;
 					console.log('[Vvv]EDRO.Objects.Player: onCanPlay()');
 
 					console.log('[Vvv]EDRO.Objects.Player: objAudio.play()');
-					//objPlayer.objAudio.play();
+					objPlayer.objAudio.play();
 					//objPlayer.objAudio.play();
 					console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.play()');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay<br/>';
@@ -1085,7 +1086,7 @@ oo2oo;
 					//objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend<br/>'; //drop 
 					//objPlayer.bIzWhileHumanEvent	=false; //+ new!  30.08.2020
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
-					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend-> .drplg<br/>'; //drop log
+					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend-> .drplg<br/>'; //drop log
 					objPlayer.objAudio.play();
 					//objPlayer.objAudio.play(); //++n
 					console.log('[...]EDRO.Objects.Player: onSspend');

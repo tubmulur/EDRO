@@ -110,7 +110,7 @@ oо2оo;
 					console.log('[Vv]EDRO.Event: Constructor');
 					//this.strURL		='';
 					this.strEvent 		='';
-					this.objXHR		=new XMLHttpRequest();
+					//this.objXHR		=new XMLHttpRequest();
 					this.strURL		='';
 					this.strURLDyn		='';
 					this.arrParams		=[];
@@ -130,93 +130,14 @@ oо2оo;
 					this._SetLanguageMood();
 					this._SetRoleSignal();
 
-					window.onpopstate=function(event)
-						{
-						console.log('[Vvv]EDRO.Event: onpopstate');
-						objEvent._GoBack(event.target.location);
-						console.log('[...]EDRO.Event: onpopstate');
-						}
-					this.objXHR.onload	=function()
-						{
-						console.log('[Vvv]EDRO.Objects: objXHR.onload');
-						if(objEvent.objXHR.status==200)
-							{	
-							if(objReality.bIzPlayer)
-								{
-								//console.log(objObjects.objXHR.response);
-								var strAudio 		= JSON.parse(objEvent.objXHR.response);
-								//strAudio
-								objPlayer.objAudio.src	=strAudio;
-								objPlayer.objAudio.play();
-								//objPlayer.objAudio.load();
-								objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
-								objReality.bIzPlayer		=false;
-								objReality.bIzLoading		=false;
-								//alert('ok');
-								}
-							/*if(objReality.bIzDynaScreen)
-								{
-								objDynaScreen.objHTML.innerHTML	=objEvent.objXHR.response;
-								objReality.bIzHistory		=false;
-								objReality.bIzDynaScreen	=false;
-								objReality.bIzLoading		=false;
-								}*/
-							if(objReality.bIzCheckMaNet)
-								{
-								objReality.bIzCheckMaNet	=false;
-								}
-							objReality.bIzPlayer		=false;
-							//objReality.bIzLoading		=false;
-							objReality.bIzHistory		=false;
-							//objReality.bIzDynaScreen	=false;
-							objReality.bIzCheckMaNet	=false;
-							objPlayer.updateOnReload();
-							objDynaScreenEventIndicator.objHTML.style.display="none";
-							}
-						else
-							{
-							objReality.bIzPlayer		=false;
-							//objReality.bIzLoading		=false;
-							objReality.bIzHistory		=false;
-							objReality.bIzCheckMaNet	=false;
-							objDynaScreenEventIndicator.objHTML.style.display="none";
-							}
-						console.log('[...]EDRO.Objects: objXHR.onload');
-						}
-					this.objXHR.onProgress		=function(event)
-						{
-						console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
-						if(event.lengthComputable)
-							{
-							//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
-							}
-	    					else
-							{
-							//console.log('Получено'+event.loaded+'байт');
-								}
-						console.log('[...]EDRO.Objects: objXHR.onProgress');
-						}
-					this.objXHR.onError=function()
-						{
-						console.log('[Vvv]EDRO.Objects: objXHR.onError');
-						objReality.bIzLoading		=false;
-						objReality.bIzPlayer		=false;
-						objReality.bIzDynaScreen	=false;
-						objReality.bIzCheckMaNet	=false;
-						objReality.bIzError		=true;
-						
-						objDynaScreenEventIndicator.objHTML.style.display="none";
-						console.log('[...]EDRO.Objects: objXHR.onError');
-						}
-						console.log('[..]EDRO.Event: Constructor');
-					}
+
 				_PlayStation(strPlayerId)
 					{
 					console.log('[Vv]EDRO.Objects: _PlayStation(strPlayerId)');
 					objReality.bIzPlayer			=true;
 					objEvent.strEvent			='/getStation';
 					objEvent.arrParams.strStationId		=strPlayerId;
-					objEvent._RequestURLDyn();
+					objEvent._RequestPlayerParams();
 					console.log('[..]EDRO.Objects: _PlayStation(strPlayerId)');
 					}
 				_Search()
@@ -277,10 +198,24 @@ oо2оo;
 					objEvent.strURLDyn		=objEvent.strURL+'&d=1';//objObjects->objEvent
 					console.log('[..]EDRO.Objects: _CreateURL()');
 					}
+				_RequestPlayerParams() //objObjects->objEvent
+					{
+					console.log('[Vv]EDRO.Event:_RequestPlayerParams()');//objObjects->objEvent
+					objReality.bIzHistory					=false;
+					this.arrPlayer.bIzLoading				=true;
+					objReality.intLoadingTime				=0;
+					//objDynaScreenEventIndicator.objHTML.style.display	="block"; 
+					objEvent._CreateURLDyn();
+					objPlayer.objXHR.open('POST', objEvent.strURLDyn);
+					objPlayer.objXHR.send();
+
+					console.log('[..]EDRO.Objects: _RequestPlayerParams()');//objObjects->objEvent
+					}
+					}
 				_RequestURLDyn() //objObjects->objEvent
 					{
 					console.log('[Vv]EDRO.Objects: _Request()');//objObjects->objEvent
-					objReality.bIzHistory					=true;
+					objReality.bIzHistory					=false;
 					objReality.bIzLoading					=true;
 					objReality.intLoadingTime				=0;
 					objDynaScreenEventIndicator.objHTML.style.display	="block"; 

@@ -43,6 +43,7 @@ class Reality extends Objects
 		$this->arrReality['strRoleLangSignal']		=rmLb(FileRead::str($objKIIM, $this->strBasePath.'/3.Reality/User/'.$this->arrReality['strRoleSignal'].'/.strLang.php'));
 		$this->arrReality['strLangSignal']		=strGetDefaultLanguage();
 		$this->arrReality['bIzAndroid']			=$this->bIzAndroid();
+		$this->arrReality['bIzApple']			=$this->bIzApple();
 		//print_r($_SESSION);
 		//print_r($this->arrReality);
 		//exit(0);
@@ -80,7 +81,18 @@ class Reality extends Objects
 			$bIz=true;
 			}
 		return $bIz;
-		return true;
+		//return true;
+		}
+	private function bIzApple()
+		{
+		$bIz=false;
+		$strUserAgent=strtolower($_SERVER['HTTP_USER_AGENT']);
+		if((strpos($strUserAgent, 'iPad')!==false)||(strpos($strUserAgent, 'iPhone')!==false)||(strpos($strUserAgent, 'iPod')!==false))
+			{
+			$bIz=true;
+			}
+		return $bIz;
+		//return true;
 		}
 	private function _IsDNT()
 		{
@@ -222,8 +234,26 @@ oo2oo;
 					this.bIzDynaScreen		=false;
 					this.bIzCheckMaNet		=false;
 					this.deviceType			=navigator.userAgent.toLowerCase();
-					this.bIzAndroid			=this.deviceType.indexOf("android")>-1;
+					//alert(this.deviceType);
+					this.bIzAndroid			=this.bIzAndroid();
+					this.bIzApple			=this.bIzApple();
 					console.log('[..]EDRO.Reality: Construct');
+					}
+				bIzApple()
+					{
+					if((this.deviceType.indexOf("iphone")>-1) || (this.deviceType.indexOf("ipad")>-1)|| (this.deviceType.indexOf("ipod")>-1))
+						{
+						return true;
+						}
+					return false;
+					}
+				bIzAndroid()
+					{
+					if(this.deviceType.indexOf("android")>-1)
+						{
+						return true;
+						}
+					return false;
 					}
 				}
 		console.log('[.]EDRO.Reality: Declare');

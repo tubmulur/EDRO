@@ -693,7 +693,7 @@ class Player
 			</ifStopped>
 		</playerControlAlwaysVisible>
 		';
-		$str.=Player::strObjectInit();
+		
 		return $str;
 		}
 	public static function strObjectInit()
@@ -724,6 +724,7 @@ oo2oo;
 				this.objAudio			=document.createElement('audio');
 				this.intPlayerLoadingAnim	=0;
 				this.strPlayerLoadingAnim	=0;
+				this.objXHR			=new XMLHttpRequest();
 				this.objStation			='';
 				this.strCurrentID		='';
 				this.strPlayingID		='';
@@ -733,16 +734,38 @@ oo2oo;
 				this.objVisibleControlsStat	=document.getElementById('playerControlAlwaysVisibleLoadingStat');
 				this.objVisibleControlsText	=document.getElementById('playerControlAlwaysVisibleLoadingText');
 
-				this.bIzLoading					=false;
-				this.intLoadingDuration				=0;
+
+				objReality.arrPlayerEvent.bIzAborted			=false;
+				objReality.arrPlayerEvent.bIzConnecting			=false;
+				objReality.arrPlayerEvent.bIzCanPlay			=false;
+				objReality.arrPlayerEvent.bIzCanPlayThrough		=false;
+				objReality.arrPlayerEvent.bIzError			=false;
+				objReality.arrPlayerEvent.bIzEndedAudio			=false;
+				objReality.arrPlayerEvent.bIzHumanEvent			=false;
+				objReality.arrPlayerEvent.bIzLoadingAudio		=false;
+				objReality.arrPlayerEvent.bIzListenerPressPlay		=false;
+				objReality.arrPlayerEvent.bIzPlaying			=false;
+				objReality.arrPlayerEvent.bIzPausedAudio		=false;
+				objReality.arrPlayerEvent.bIzStalled			=false;
+				objReality.arrPlayerEvent.bIzStoppedAudio		=false;
+				objReality.arrPlayerEvent.bIzWaitingWhilePlaying	=false;
+
+
+				//this.bIzConnecting					=
+				//objReality.arrPlayerEvent.bIzConnecting			=false;
+				objReality.arrPlayer.intConnectingDuration		=0;
+
+				//this.bIzLoadingAudio					=
+				//objReality.arrPlayerEvent.bIzLoadingAudio		=false;
+				objReality.arrPlayer.intLoadingDuration			=0;
 				this.objVisibleControlsLoading			=document.getElementById('playerControlAlwaysVisibleLoading');
 				this.objVisibleControlsLoadingStationName	=document.getElementById('playerControlAlwaysVisibleLoadingStationName');
 				this.objVisibleControlsLoadingDuration		=document.getElementById('playerControlAlwaysVisibleLoadingDuration');
 				this.objVisibleControlsLoadingErrors		=document.getElementById('playerControlAlwaysVisibleLoadingErrors');
-				
 
-				this.bIzPlaying					=false;
-				this.intPlayingDuration				=0;
+				//this.bIzPlaying					=false;
+				//objReality.arrPlayerEvent.bIzPlaying			=false;
+				objReality.arrPlayer.intPlayingDuration			=0;
 				this.objVisibleControlsPlaying			=document.getElementById('playerControlAlwaysVisiblePlaying');
 				this.objVisibleControlsPlayingDuration		=document.getElementById('playerControlAlwaysVisiblePlayingDuration');
 
@@ -760,13 +783,75 @@ oo2oo;
 				this.bIzNeedToBeStoppedEvent	=false;
 				this.bIzWeThinkPlayerIsPlaying	=false;
 				this.objDebugString.innerHTML	='objPlayer.objAudio.construct<br/>';
+				this.objXHR.onload	=function()
+					{
+					console.log('[Vvv]EDRO.Objects: objPlayer.objXHR.onload');
+					if(objPlayer.objXHR.status==200)
+						{	
+						if(objReality.arrPlayerEvent.bIzConnecting)
+							{
+							var strAudio 		= JSON.parse(objPlayer.objXHR.response);
+							objPlayer.objAudio.src	=strAudio;
+							objPlayer.objAudio.play();
+							//objPlayer.objAudio.load();
+							objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
+							objReality.arrPlayerEvent.bIzConnecting	=false;
+							}
+						else
+							{
+							objReality.arrPlayerEvent.bIzConnecting	=false;
+							}
+						}
+					else
+						{
+						objReality.arrPlayerEvent.bIzConnecting	=false;
+						}
+					console.log('[...]EDRO.Objects: objXHR.onload');
+					}
+				this.objXHR.onProgress		=function(event)
+					{
+					console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
+					if(event.lengthComputable)
+						{
+						//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
+						}
+					else
+						{
+						//console.log('Получено'+event.loaded+'байт');
+							}
+					console.log('[...]EDRO.Objects: objXHR.onProgress');
+					}
+				this.objXHR.onError=function()
+					{
+					console.log('[Vvv]EDRO.Objects: objXHR.onError');
+
+					objReality.arrPlayerEvent.bIzConnecting			=false;
+					objReality.arrPlayerEvent.bIzError			=true;
+					console.log('[...]EDRO.Objects: objXHR.onError');
+					}
+					//console.log('[..]EDRO.Event: Constructor');
 				this.objAudio.onloadstart	=function()
 					{
+					objReality.arrPlayerEvent.bIzAborted			=false;
+					//objReality.arrPlayerEvent.bIzConnecting			=false;
+					objReality.arrPlayerEvent.bIzCanPlay			=false;
+					objReality.arrPlayerEvent.bIzCanPlayThrough		=false;
+					objReality.arrPlayerEvent.bIzError			=false;
+					objReality.arrPlayerEvent.bIzEndedAudio			=false;
+					objReality.arrPlayerEvent.bIzLoadingAudio		=true;
+					objReality.arrPlayerEvent.bIzListenerPressPlay		=false;
+					objReality.arrPlayerEvent.bIzPlaying			=false;
+					objReality.arrPlayerEvent.bIzPausedAudio		=false;
+					objReality.arrPlayerEvent.bIzStalled			=false;
+					objReality.arrPlayerEvent.bIzWaitingWhilePlaying	=false;
+
+
+					//objReality.arrPlayerEvent.bIzHumanEvent			=false;
+					objPlayer.bIzWhileHumanEvent				=false;
 					//alert('.onloadstart');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onloadstart<br/>';
 					console.log('[Vvv]EDRO.Objects.Player: onLoadStart');
-					objReality.arrPlayer.bIzLoading	=true;
-					objReality.arrPlayer.bIzPlaying	=false;
+					
 					//console.log(objPlayer.objAudio.readyState);
 					//console.log(objPlayer.objStation);
 					
@@ -786,61 +871,58 @@ oo2oo;
 
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onloadstart .bIzWhileHumanEvent=false;<br/>';
-					objPlayer.bIzWhileHumanEvent=false;
+
 					objKIIM_StatisticalMembrane._start(objPlayer.objStation);
 					console.log('[...]EDRO.Objects.Player: onLoadStart');
 					}
 				this.objAudio.onwaiting		=function()
 					{
-					//alert('.onwaiting');
+					objReality.arrPlayerEvent.bIzWaitingWhilePlaying	=true;
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onWaiting<br/>';
 					console.log('[Vvv]EDRO.Objects.Player: onWaiting()');
-					//console.log('[Vvv]EDRO.Objects.Player: objAudio.Load()');
-					objReality.arrPlayer.bIzLoading=true;
-					//objPlayer.objAudio.load();//--
+
+
 					objPlayer.objAudio.play(); //++n
+					//Must be loading
+					//Must be loading
+					//Must be loading
+					//Must be loading
+					//Must be loading
+					//Must be loading
+					//Must be loading
+					//Must be loading
+					//Must be loading
 					
-					//console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.Load()');
-					//objPlayer.bIzWhileHumanEvent=false;
-					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onWaiting .bIzWhileHumanEvent=false;<br/>';
-					//console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
 					console.log('[...]EDRO.Objects.Player: onWaiting()');
 					}
 				this.objAudio.oncanplay		=function()
 					{
+					objReality.arrPlayerEvent.bIzCanPlay			=true;
 					//alert('.oncanplay');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay<br/>';
 					console.log('[Vvv]EDRO.Objects.Player: onCanPlay()');
 
-					console.log('[Vvv]EDRO.Objects.Player: objAudio.play()');
+
 					objPlayer.objAudio.play();
-					//objPlayer.objAudio.play();
-					console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.play()');
-					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay<br/>';
-					//this.bIzWeThinkPlayerIsPlaying	=true;
-					//objPlayer.bIzWhileHumanEvent	=false;
 					console.log('[...]EDRO.Objects.Player: objAudio.play()');
 					}
 				this.objAudio.oncanplaythrough	=function()
 					{
-					//alert('.oncanplaythrough');
+					objReality.arrPlayerEvent.bIzCanPlayThrough		=true;
 					console.log('[Vvv]EDRO.Objects.Player: onCanPlayThrough()');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplaythrough<br/>';
+
 					objPlayer.objAudio.play();
-					//this.play();
-					//this.bIzWeThinkPlayerIsPlaying	=true;
-					//objPlayer.bIzWhileHumanEvent	=false;
+
 					console.log('[...]EDRO.Objects.Player: onCanPlayThrough()');
 					}
 				this.objAudio.onplaying		=function()
 					{
-					//alert('.onplaying');
+					objReality.arrPlayerEvent.bIzLoadingAudio		=false;
+					objReality.arrPlayerEvent.bIzPlaying			=false;
+					objReality.arrPlayerEvent.bIzHumanEvent			=false;
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPlaying<br/>';
 					console.log('[Vvv]EDRO.Objects.Player: onPlaying()');
-					objReality.arrPlayer.bIzLoading	=false;
-					objReality.arrPlayer.bIzPlaying	=true;
-					//this.bIzWeThinkPlayerIsPlaying		=true;
-					console.log('[Vvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=true');
 					objKIIM_StatisticalMembrane._stop();
 					//objPlayer.bIzPlayedOnceEvent		=true; //New - 30.08.2020
 					objPlayer.objVisibleControls.classList.remove('stopped');
@@ -863,30 +945,23 @@ oo2oo;
 					}
 				this.objAudio.onended		=function()
 					{
-					//alert('onended');
+					objReality.arrPlayerEvent.bIzEndedAudio		=true;
 					console.log('[Vvv]EDRO.Objects.Player: onEnded()');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onEnded bIzWhileHumanEvent=false<br/>';
 
+					objPlayer.objAudio.load();
 
 
 
 
 
-
-
-
-
-					console.log('[Vvv]EDRO.Objects.Player: objAudio.load()');
-					//objPlayer.objAudio.load(); //++ New - 30.08.2020 //--
-					console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.load()');
 					console.log('[...]EDRO.Objects.Player: onEnded()');
 					}
 				this.objAudio.onpause		=function()
 					{
-					//alert('onpause');
+					objReality.arrPlayerEvent.bIzPausedAudio	=true;
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause start-><br/>';
 					console.log('[Vvv]EDRO.Objects.Player: onPause()');
-					//console.log(objPlayer.objAudio);
 					objPlayer.objVisibleControls.classList.remove('loadingAudio');
 					objPlayer.objVisibleControls.classList.remove('playing');
 					objPlayer.objVisibleControls.classList.remove('errorAudio');
@@ -910,7 +985,7 @@ oo2oo;
 							
 							console.log('[Vvvvv]EDRO.Objects.Player: load()');
 							//objPlayer.objAudio.load();//--
-							this.bIzLoading=true;
+							//this.bIzLoading=true;
 							console.log('[Vvvvv]EDRO.Objects.Player: AFTER:load()');
 							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause-><br/>';
 							objPlayer.objDebugString.innerHTML+='objPlayer.bIzWhileHumanEvent->objPlayer.objAudio.load();<br/>';
@@ -942,12 +1017,9 @@ oo2oo;
 				this.objAudio.onerror		=function()
 					{
 					//alert('onerror');
+					objReality.arrPlayerEvent.bIzError		=true;
 					console.log('[Vvv]EDRO.Objects.Player: onError');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError start-><br/>';
-					
-					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objKIIM_StatisticalMembrane._stop()-><br/>';
-
-					
 
 					objPlayer.objPlayingBlock		=document.getElementById(objPlayer.strPlayingID);
 					if(objPlayer.objPlayingBlock)
@@ -985,7 +1057,7 @@ oo2oo;
 							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.objPlayingBlock<br/>';
 							objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=false-><br/>';
 							console.log('[Vvvvv]EDRO.Objects.Player: !bIzNeedToBeStoppedEvent?');
-							if(objReality.arrPlayer.bIzPlaying==false)
+							if(objReality.arrPlayerEvent.bIzPlaying==false)
 								{
 								objPlayer.objPlayingBlock.className	+=' errorAudio';
 								}
@@ -1004,11 +1076,13 @@ oo2oo;
 						}
 					if(objPlayer.bIzNeedToBeStoppedEvent)
 						{
+						objPlayer.bIzNeedToBeStoppedEvent	=false;
+						this.bIzWeThinkPlayerIsPlaying		=false;
 						console.log('[Vvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
 						
-						objPlayer.bIzNeedToBeStoppedEvent	=false;
+
 						console.log('[Vvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=false');
-						this.bIzWeThinkPlayerIsPlaying		=false;
+
 						console.log('[Vvvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=false');
 						objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError<br/>';
 						objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=false; was true flag-><br/>';
@@ -1025,7 +1099,7 @@ oo2oo;
 						}
 					else
 						{
-						if(objReality.arrPlayer.bIzPlaying==false)
+						if(objReality.arrPlayerEvent.bIzPlaying	==false)
 							{
 							objPlayer.objPlayingBlock.className	+=' errorAudio';
 							}
@@ -1054,13 +1128,9 @@ oo2oo;
 				this.objAudio.onstalled		=function()
 					{
 					//alert('.onstalled	');
+					objReality.arrPlayerEvent.bIzStalled			=true;
 					console.log('[Vvv]EDRO.Objects.Player: objAudio.onstalled');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled<br/><br/>';
-					//objPlayer.bIzWhileHumanEvent	=false; //+ new!  30.08.2020
-					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
-					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled-> .load()<br/>';
-					//objPlayer.objAudio.play(); //++n
-					//objKIIM_StatisticalMembrane._error();
 					if(!objReality.bIzAndroid)
 						{
 						objPlayer.objAudio.load();//--
@@ -1070,52 +1140,65 @@ oo2oo;
 						objPlayer.objAudio.play();
 						}
 					
-					this.bIzLoading=true;
 					console.log('[...]EDRO.Objects.Player: objAudio.onstalled');
-					//objPlayer.objAudio.play(); //++n
 					}
 				this.objAudio.onabort		=function() //Abort is allowed in Russia. But we disallow abort. Abort is a murder death kill! Hfic Samin.
 					{
 					//alert('onabort');
+					objReality.arrPlayerEvent.bIzAborted			=true;
 					console.log('[Vvv]EDRO.Objects.Player: onAbort');
-					//objKIIM_StatisticalMembrane._error();
-					//objPlayer.bIzWhileHumanEvent		=false;
+					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onAbort dropHumanEvent flag->';
+
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
 					//objPlayer.bIzNeedToBeStoppedEvent	=false;
 					console.log('[Vvv=^+v]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=true');
 					//objPlayer.objAudio.pause();  //+ new!  30.08.2020
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onAbort dropHumanEvent flag->';
+
 					console.log('[...]EDRO.Objects.Player: onAbort');
 					}
 				this.objAudio.onsuspend		=function()
 					{
-					//alert('onsuspend');
+					objReality.arrPlayerEvent.bIzSuspended			=true;
 					console.log('[Vvv]EDRO.Objects.Player: onSspend');
-					//objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend<br/>'; //drop 
-					//objPlayer.bIzWhileHumanEvent	=false; //+ new!  30.08.2020
-					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend-> .drplg<br/>'; //drop log
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend-><br/>'; //drop log
+
 					objPlayer.objAudio.play();
-					//objPlayer.objAudio.play(); //++n
 					console.log('[...]EDRO.Objects.Player: onSspend');
 					}
 				console.log('[..]EDRO.Objects.Player: Player.constructor()');
 				}
 			play(obj, strAudio, strAudioType)
 				{
-				//objPlayer.objAudio.src='http://trance.kg:8000/low.mp3';
-				//objPlayer.objAudio.play();
 				console.log('[Vv]EDRO.Objects.Player: play()');
-				objPlayer.objDebugString.innerHTML+='objPlayer.Play-><br/>';
-				objReality.arrPlayer.bIzLoading		=true;
-				objPlayer.intLoadingDuration	=0;
-				objReality.arrPlayer.bIzPlaying		=false;
+				//objPlayer.objXHR need to be dropped
+				objPlayer.objDebugString.innerHTML='objPlayer.Play Drop KIIM events<br/>';
+				objReality.arrPlayerEvent.bIzAborted			=false;
+				objReality.arrPlayerEvent.bIzConnecting			=false;
+				objReality.arrPlayerEvent.bIzCanPlay			=false;
+				objReality.arrPlayerEvent.bIzCanPlayThrough		=false;
+				objReality.arrPlayerEvent.bIzError			=false;
+				objReality.arrPlayerEvent.bIzEndedAudio			=false;
+				objReality.arrPlayerEvent.bIzLoadingAudio		=false;
+				objReality.arrPlayerEvent.bIzListenerPressPlay		=true;
+				objReality.arrPlayerEvent.bIzPlaying			=false;
+				objReality.arrPlayerEvent.bIzPausedAudio		=false;
+				objReality.arrPlayerEvent.bIzStalled			=false;
+				objReality.arrPlayerEvent.bIzStoppedAudio		=false;
+				objReality.arrPlayerEvent.bIzWaitingWhilePlaying	=false;
+				objReality.arrPlayerEvent.bIzHumanEvent			=true;
+				objPlayer.bIzWhileHumanEvent				=true;
+				objPlayer.bIzPlayedOnceEvent				=false;
 				objPlayer.intPlayingDuration	=0;
+
+//				objReality.arrPlayer.bIzLoading		=true;
+				//objPlayer.intLoadingDuration	=0;
+//				objReality.arrPlayer.bIzPlaying		=false;
+				
 				objPlayer.objVisibleControlsPlaying.innerHTML='';
 				console.log('[Vv]EDRO.Objects.Player: clear.Indicator.Playing');
-				objPlayer.bIzWhileHumanEvent	=true;
+
 				console.log('[Vv]EDRO.Objects.Player: bIzWhileHumanEvent=true');
-				objPlayer.bIzPlayedOnceEvent	=false;
+
 				console.log('[Vv]EDRO.Objects.Player: bIzPlayedOnceEvent=false');
 
 				if(objPlayer.strPlayingID!=false)
@@ -1166,6 +1249,7 @@ oo2oo;
 				objPlayer.objVisibleControlsStopped.innerHTML			=objPlayer.strStationName;
 				objPlayer.objVisibleControlsOverloadStationName.innerHTML	=objPlayer.strStationName;
 				objPlayer.objVisibleControlsStopped.setAttribute('playerId', objPlayer.strCurrentID);
+				objPlayer.objVisibleControlsStopped.setAttribute('playerLink', strAudio);
 				//objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
 
 				objPlayer.objVisibleControls.className		+=' loadingAudio';
@@ -1190,7 +1274,7 @@ oo2oo;
 				console.log('[Vv]EDRO.Objects.Player: Current>>Playing');
 				objPlayer.bIzWhileHumanEvent			=false;
 				console.log('[Vv]EDRO.Objects.Player: .bIzWhileHumanEvent=false');
-				objReality.arrPlayer.bIzLoading			=false;
+				///objReality.arrPlayer.bIzLoading			=false;
 				//objPlayer.objAudio.src			=strAudio;
 				//objPlayer.objAudio.load();
 
@@ -1198,20 +1282,33 @@ oo2oo;
 				}
 			stop(strIsHumanOr='Unknown')
 				{
+
+				objPlayer.bIzWhileHumanEvent				=true;
+				objPlayer.bIzPlayedOnceEvent				=false;
+				objPlayer.bIzNeedToBeStoppedEvent			=true;
+				objReality.arrPlayerEvent.bIzAborted			=false;
+				objReality.arrPlayerEvent.bIzConnecting			=false;
+				objReality.arrPlayerEvent.bIzCanPlay			=false;
+				objReality.arrPlayerEvent.bIzCanPlayThrough		=false;
+				objReality.arrPlayerEvent.bIzError			=false;
+				objReality.arrPlayerEvent.bIzEndedAudio			=false;
+				objReality.arrPlayerEvent.bIzLoadingAudio		=false;
+				objReality.arrPlayerEvent.bIzListenerPressPlay		=false;
+				objReality.arrPlayerEvent.bIzPlaying			=false;
+				objReality.arrPlayerEvent.bIzPausedAudio		=false;
+				objReality.arrPlayerEvent.bIzStoppedAudio		=true;
+				objReality.arrPlayerEvent.bIzStalled			=false;
+				objReality.arrPlayerEvent.bIzWaitingWhilePlaying	=false;
+				objReality.arrPlayerEvent.bIzHumanEvent			=true;
 				console.log('[Vv]EDRO.Objects.Player: stop()');
 				objPlayer.objDebugString.innerHTML+='objPlayer.Stop-><br/>';
-				objPlayer.bIzWhileHumanEvent		=true;
 				console.log('[Vv]EDRO.Objects.Player: bIzWhileHumanEvent=true');
-				objPlayer.bIzPlayedOnceEvent		=false;
-				console.log('[Vv]EDRO.Objects.Player: bIzPlayedOnceEvent=false');
-				objPlayer.bIzNeedToBeStoppedEvent	=true;
 				console.log('[Vv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=true');
 
-				console.log('[Vv]EDRO.Objects.Player: BEFORE:pause()');
 				objPlayer.objAudio.pause();
-				console.log('[V]EDRO.Objects.Player: AFTER:pause()');
 				objPlayer.objAudio.src			='';
-				console.log('[Vv]EDRO.Objects.Player: ZzzuzzZ real stop patch 2009, progressed by assminog to total stop event 2020.');
+
+				console.log('[Vv]EDRO.Objects.Player: ZzzuzzZ real stop patch 2009, progressed by Assminog to total stop event 2020.');
 				console.log('[..]EDRO.Objects.Player: stop()');
 				}
 			updateOnReload()
@@ -1220,21 +1317,21 @@ oo2oo;
 				objPlayer.objDebugString.innerHTML+='objPlayer.updateOnReload-><br/>';
 				if(objPlayer.objVisibleControls.classList.contains('playing'))
 					{
-					objPlayer.objDebugString.innerHTML+='objPlayer. has playing flag-><br/>';
-					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
+					objPlayer.objDebugString.innerHTML	+='objPlayer. has playing flag-><br/>';
+					objPlayer.objCurrentBlock		=document.getElementById(objPlayer.strCurrentID);
 					if(objPlayer.objCurrentBlock)
 						{
-						objPlayer.objDebugString.innerHTML+='objPlayer. is current block-><br/>';
+						objPlayer.objDebugString.innerHTML	+='objPlayer. is current block-><br/>';
 						objPlayer.objCurrentBlock.className	+=' playing';
 						}
 					}
 				if(objPlayer.objVisibleControls.classList.contains('loadingAudio'))
 					{
-					objPlayer.objDebugString.innerHTML+='objPlayer. has loadingAudio block-><br/>';
-					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
+					objPlayer.objDebugString.innerHTML	+='objPlayer. has loadingAudio block-><br/>';
+					objPlayer.objCurrentBlock		=document.getElementById(objPlayer.strCurrentID);
 					if(objPlayer.objCurrentBlock)
 						{
-						objPlayer.objDebugString.innerHTML+='objPlayer. adding loadingAudio flag to current block-><br/>';
+						objPlayer.objDebugString.innerHTML	+='objPlayer. adding loadingAudio flag to current block-><br/>';
 						objPlayer.objCurrentBlock.className	+=' loadingAudio';
 						}
 					}
@@ -1249,6 +1346,7 @@ oo2oo;
 		console.log('[.]EDRO.Objects.Player: Declare Player');
 		</script>
 oo2oo;
+		$str.=Player::strObjectInit();
 		return $str;
 		}
 	}

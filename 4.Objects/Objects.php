@@ -31,7 +31,16 @@ class Objects
 		{$objKIIM=$_objKIIM;unset($_objKIIM);$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__,'_strMethod'=>__FUNCTION__, '_strMessage'=>'', '_objCurrent'=>'', '_intShowTempo'=>'' ));
 
 		$сРасположениеКорень	='/home/ЕДРО:ПОЛИМЕР/БазаДанных/HiFiIntelligentClub';
-
+		$strPlatformPrefix	='';
+		if($this->arrReality['bIzAndroid'])
+			{
+			$strPlatformPrefix	='/Android';
+			}
+		if($this->arrReality['bIzApple'])
+			{
+			$strPlatformPrefix	='/Apple';
+			}
+		$сРасположениеКорень	=$сРасположениеКорень.$strPlatformPrefix;
 		$strSearchName		=сПреобразовать(mb_strtolower(trim($this->arrEvent['arrParams']['strName'])),'вКоманду');
 		if(strlen($strSearchName)<3)
 			{
@@ -144,10 +153,7 @@ class Objects
 			echo '</pre>';*/
 			}
 
-		/*echo '
-			Mon 15 September 22:40:24.1264 2020 Update progress:<br/>
-			<progress id="file" value="85" max="100" style="width:78vw; height:120px;"> 85% </progress>
-			';
+		/*
 		echo '<pre>';
 		print_r($this);
 		echo '</pre>';
@@ -191,17 +197,17 @@ oо2оo;
 		}
 	public static function strAudioDeclare()
 		{
-		$str='
+		/*$str='
 		<audio 
 			id="objHiFiIntelligentClubAudio"
-			style="margin-top:60px;"
+			class	="fix layer_5"
+			style	="margin-top:60px;"
 			controls	=""
-			autoplay	="" 
 			name		="media"
 			>
 			<source src="" type="audio/mpeg"/>
 		</audio>';
-		return $str;
+		return $str;*/
 		}
 	public static function strObjectDeclare()
 		{
@@ -219,7 +225,7 @@ oо2оo;
 					//objPlayer.objVisibleControlsPlayingDuration.innerHtml	=objPlayer.intPlayingDuration;
 					objPlayer.intPlayingDuration++;
 					}
-				if(objPlayer.bIzLoading||objPlayer.bIzPlaying)
+				if(objReality.arrPlayer.bIzLoading||objReality.arrPlayer.bIzPlaying)
 					{
 				//	console.log(objPlayer.objAudio.textTracks);
 					if(objPlayer.objAudio.networkState==1)
@@ -266,7 +272,7 @@ oо2оo;
 					objPlayer.intPlayingDuration++;
 					}
 				
-				if(objPlayer.bIzLoading)
+				if(objReality.arrPlayer.bIzLoading)
 					{
 					//objPlayer.objVisibleControlsLoadingDuration.innerHTML=objPlayer.intLoadingDuration;
 					if(objPlayer.intPlayerLoadingAnim==3)
@@ -276,7 +282,7 @@ oо2оo;
 						}
 					objPlayer.intPlayerLoadingAnim++;
 					objPlayer.strPlayerLoadingAnim	+='.';
-					document.title	=objPlayer.strPlayerLoadingAnim+objPlayer.strStationName+'|HiFiIntelligentClub.com';
+					document.title	=objPlayer.strPlayerLoadingAnim+decodeURIComponent(objPlayer.strStationName)+'|HiFiIntelligentClub.com';
 					objIndicatorMasterClock.objStrServerLoading.innerHTML	=objReality.intMaxLoadingTime+'/'+objReality.intLoadingTime+'/'+objPlayer.intLoadingDuration;
 					if(!objPlayer.bIzNeedToBeStoppedEvent)
 						{
@@ -288,6 +294,7 @@ oо2оo;
 				else
 					{
 					objPlayer.strPlayerLoadingAnim	='';
+					document.title	=objPlayer.strPlayerLoadingAnim+decodeURIComponent(objPlayer.strStationName)+'|HiFiIntelligentClub.com';
 					}
 				if(objReality.bIzLoading)
 					{

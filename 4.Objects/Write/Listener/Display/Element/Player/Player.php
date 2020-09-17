@@ -11,7 +11,7 @@ class Player
 	private $arr;
 	private $strHTML;
 	private $strAudio;
-	public function __construct($_objKIIM, $_strAudio)
+	public function __construct($_objKIIM, $_strAudio, $_strAudioType)
 		{
 		$objKIIM=$_objKIIM;unset($_objKIIM);
 		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
@@ -20,13 +20,14 @@ class Player
 		//$this->strAudio		=strEncode($_strAudio, 'HiFiIntelligentClub', 'e');
 		$this->strAudio			=$_strAudio;
 					   unset($_strAudio);
+		$strAudioType			='audio/'.$_strAudioType;
 		//$this->arr=$_arrData;
 		if(!empty($this->strAudio))
 			{//
 			$this->strHTML=VectorKIIM_elementWaiting4Event_statisticalMembrane::strHTML($objKIIM).
 			    '<ifReady
 				class="block cursor no-select TC1 BC1"
-				onclick="objPlayer.play(this,\''.$this->strAudio.'\');"
+				onclick="objPlayer.play(this,\''.$this->strAudio.'\', \''.$strAudioType.'\' );"
 				style="
 					/*background-color:#dddbdb;*/
 					/*width		:46px;*/
@@ -40,7 +41,7 @@ class Player
 						"
 					>
 					<ifEN>
-						<marquee>Station overloaded. Please try another or less bitrate Kbps, this stations
+						<marquee style="width:44px;">Station overloaded. Please try another or less bitrate Kbps, this stations
 						  sounds with less quality but  this is situable for slower internet.</marquee>
 					</ifEN>
 					<ifRU>
@@ -174,7 +175,7 @@ class Player
 			</ifLoadingAudio>
 			<ifNoConnection
 				class="block cursor TC2 BC1 no-select"
-				onclick="objPlayer.play(this,\''.$this->strAudio.'\');"
+				onclick="objPlayer.play(this,\''.$this->strAudio.'\', \''.$strAudioType.'\' );"
 				style="
 					display		:none;
 					width		:100%;
@@ -194,9 +195,9 @@ class Player
 			}
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
-	public static function strHTML($_objKIIM, $_strAudio)
+	public static function strHTML($_objKIIM, $_strAudio, $_strAudioType)
 		{
-		$objShader=new Player($_objKIIM, $_strAudio);
+		$objShader=new Player($_objKIIM, $_strAudio, $_strAudioType);
 		return $objShader->strHTML;
 		}
 	public static function strIndicatorTop()
@@ -1058,9 +1059,16 @@ oo2oo;
 					//objPlayer.bIzWhileHumanEvent	=false; //+ new!  30.08.2020
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled-> .load()<br/>';
-					objPlayer.objAudio.play(); //++n
+					//objPlayer.objAudio.play(); //++n
 					//objKIIM_StatisticalMembrane._error();
-					//objPlayer.objAudio.load();//--
+					if(!objReality.bIzAndroid)
+						{
+						objPlayer.objAudio.load();//--
+						}
+					else
+						{
+						objPlayer.objAudio.play();
+						}
 					
 					this.bIzLoading=true;
 					console.log('[...]EDRO.Objects.Player: objAudio.onstalled');
@@ -1093,7 +1101,7 @@ oo2oo;
 					}
 				console.log('[..]EDRO.Objects.Player: Player.constructor()');
 				}
-			play(obj, strAudio)
+			play(obj, strAudio, strAudioType)
 				{
 				//objPlayer.objAudio.src='http://trance.kg:8000/low.mp3';
 				//objPlayer.objAudio.play();
@@ -1164,7 +1172,7 @@ oo2oo;
 				objPlayer.objCurrentBlock.className		+=' loadingAudio';
 				console.log('[Vv]EDRO.Objects.Player: Visible controls +loadingAudio');
 				console.log('[Vv]EDRO.Objects.Player: +loadingAudio');
-				
+				//objPlayer.objAudio.setAttribute('type', strAudioType);
 				if(objReality.bIzAndroid)
 					{
 					console.log('[Vvv]EDRO.Objects.Player: bIzAndroid');

@@ -1148,6 +1148,10 @@ oo2oo;
 					objReality.arrPlayerEvent.bIzAborted			=true;
 					console.log('[Vvv]EDRO.Objects.Player: onAbort');
 					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onAbort dropHumanEvent flag->';
+					if(objReality.arrPlayerEvent.bIzLoadingAudio===false)
+						{
+						objPlayer.objAudio.loading();
+						}
 
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
 					//objPlayer.bIzNeedToBeStoppedEvent	=false;
@@ -1161,8 +1165,11 @@ oo2oo;
 					objReality.arrPlayerEvent.bIzSuspended			=true;
 					console.log('[Vvv]EDRO.Objects.Player: onSspend');
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend-><br/>'; //drop log
-
-					objPlayer.objAudio.play();
+					if(objReality.arrPlayerEvent.bIzLoadingAudio===false)
+						{
+						objPlayer.objAudio.loading();
+						}
+					
 					console.log('[...]EDRO.Objects.Player: onSspend');
 					}
 				console.log('[..]EDRO.Objects.Player: Player.constructor()');

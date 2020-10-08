@@ -3,7 +3,7 @@
 # E - Event
 # D - Design
 # R - Reality
-# O - Objects (Вложенные инструменты)
+# O - Objects 
 
 ### Благословенный.RCe.Framework Precision 0_1 math:
 ## Как проводить математическиее операции с рядами, начинающимися с 0 и 1?

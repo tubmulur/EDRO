@@ -18,24 +18,22 @@
  int0_name - integer started from 0 (0,1,2,3,4,5)=5;<br/><br/>
  
 ## Объявляем префикс "int1", для ряд начинается с 1:
- int1_name - integer started from 1 (1,2,3,4,5,6)=6;<br/>
-<br/>
+ int1_name - integer started from 1 (1,2,3,4,5,6)=6;<br/><br/>
 
 ### Приведение типов:
 int0_name+1 = int1_name; <br/>
 int1_name-1 = int0_name; <br/><br/>
-Лучше, чтобы не путаться предварительно привести все типы к INT1; <br/>
+
+### Лучше, чтобы не путаться предварительно привести все типы к INT1;
 Результат, после всех математических действий, будет обладать понятным префиксом, указывающим на то, что ряд начинается с 0 или 1, соответсвенно результат обладающий префиксом, можно будет без труда привести к int0 или int1, при необходимости;<br/>
 <br/>
 
 ### Сложение: 
 1.Для начала, приведём все типы к INT1;<br/><br/>
-((int0_name+1)+int1_name)     =int1_result;<br/>
-<br/>
+((int0_name+1)+int1_name)     =int1_result;<br/><br/>
 
 ### Преобразование в нужный формат:
-(int1_result - 1)             = int0_result; <br/>
-<br/>
+(int1_result - 1)             = int0_result; <br/><br/>
 
 ### Сравнение: 
  <br/>
@@ -44,18 +42,15 @@ int1_name-1 = int0_name; <br/><br/>
 
 ### Деление: 
 1.Перед операцией, приведём все данные к типу INT1.<br/>
-(int0_name+1)/int1_name       =int1_result; <br/>
-<br/>
+(int0_name+1)/int1_name       =int1_result; <br/><br/>
 
 ### Приведение типа к нужному:
 int1_result-1                 =int0_result; <br/>
-int0_result+1                 =int1_result; <br/>
-<br/>
+int0_result+1                 =int1_result; <br/><br/>
 
 ### Умножение: 
 1.Приведём все данные к типу INT1.<br/><br/>
-int1_name*(int0_name+1)       =int1_result; <br/>
-<br/>
+int1_name*(int0_name+1)       =int1_result; <br/><br/>
 
 ## Это гениально! Экономит миллионы лет, на любом языке программирования и просто в устном счёте.
 <br/>

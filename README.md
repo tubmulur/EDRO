@@ -28,7 +28,7 @@ int1_name-1 = int0_name; <br/>
 <br/>
 
 ### Сложение: 
-1.Предворительно приведём все типы к INT1: 
+1.Предворительно приведём все типы к INT1.<br/>
 ((int0_name+1)+int1_name)     =int1_result; <br/>
 <br/>
 
@@ -51,7 +51,7 @@ int1_result-1                 =int0_result; <br/>
 <br/>
 
 ### Умножение: 
-1.Приведём все данные к типу INT1<br/>
+1.Приведём все данные к типу INT1.<br/>
 int1_name*(int0_name+1)       =int1_result; <br/>
 <br/>
 

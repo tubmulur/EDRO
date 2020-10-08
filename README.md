@@ -15,25 +15,25 @@
  Мы объявили эти ряды, в стиле Благословенный.RCe.Framework Precision 0_1 math: <br/><br/>
  
  ## Объявляем префикс "int0", для ряда начинается с 0:
- int0_name - integer started from 0 (0,1,2,3,4,5)=5  <br/><br/>
+ int0_name - integer started from 0 (0,1,2,3,4,5)=5;<br/><br/>
  
 ## Объявляем префикс "int1", для ряд начинается с 1:
- int1_name - integer started from 1 (1,2,3,4,5,6)=6<br/>
+ int1_name - integer started from 1 (1,2,3,4,5,6)=6;<br/>
 <br/>
 
 ### Приведение типов:
 int0_name+1 = int1_name; <br/>
-int1_name-1 = int0_name; <br/>
-Лучше, чтобы не путаться предворительно привести все типы к INT1. <br/>
+int1_name-1 = int0_name; <br/><br/>
+Лучше, чтобы не путаться предворительно привести все типы к INT1; <br/>
 <br/>
 
 ### Сложение: 
-1.Предворительно приведём все типы к INT1.<br/>
-((int0_name+1)+int1_name)     =int1_result; <br/>
+1.Предворительно приведём все типы к INT1;<br/><br/>
+((int0_name+1)+int1_name)     =int1_result;<br/>
 <br/>
 
 ### Преобразование в нужный формат:
-(int1_result - 1)             = int0_result <br/>
+(int1_result - 1)             = int0_result; <br/>
 <br/>
 
 ### Сравнение: 
@@ -51,7 +51,7 @@ int1_result-1                 =int0_result; <br/>
 <br/>
 
 ### Умножение: 
-1.Приведём все данные к типу INT1.<br/>
+1.Приведём все данные к типу INT1.<br/><br/>
 int1_name*(int0_name+1)       =int1_result; <br/>
 <br/>
 

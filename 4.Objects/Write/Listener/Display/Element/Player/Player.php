@@ -260,7 +260,10 @@ class Player
 						"
 					>
 					<ifRU>
-						<marquee direction="up" scrollamount="1" style="font-size:small"><paragraph></paragraph>Приветствуем вас в HiFI Intelligent Club.<br/><br/><br/><br/>
+						<marquee direction="up" scrollamount="1" style="font-size:small"><paragraph></paragraph>Приветствуем вас в HiFI Intelligent Club.<br/><br/><br/>
+						Дорогие Бродкастеры. В настоящий момент, мы не поддерживаем станции с длиной названия более 256 символов. По техническим причинам.<br/><br/>
+						Просим корректно заполнять поля "Кодек и битрейт".<br/><br/>
+						Станции, у которых вместо кодека или битрейта название проекта, не участвуют в поиске по кодеку или битрейту.<br/><br/>
 						Чтобы прочитать вступительную речь, <br/><br/>
 						нажмите на клавишу МЕНЮ, <br/><br/><br/><br/>
 						и прокрутите поля поиска вниз.<br/>
@@ -279,6 +282,9 @@ class Player
 						<paragraph></paragraph>Hello<br/><br/>
 						<paragraph></paragraph>at <br/><br/>
 						<paragraph></paragraph>HiFiIntelligentClub.<br/><br/><br/>
+						Dear broadcasters, by the technical reasons station names with more than 256 symbols length, are not supported now.<br/><br/>
+						We are focusing on this problem now. <br/><br/>
+						Also, stations with incorrect codec or bitrate filled fields, are not searchable by codec or bitrate.<br/><br/>
 						To read our initial words,<br/><br/><br/>
 						press "MENU" button ->> <br/><br/><br/><br/>
 						Than scroll down the search fields.<br/>
@@ -1047,6 +1053,66 @@ oo2oo;
 					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError start-><br/>';
 
 					objPlayer.objPlayingBlock		=document.getElementById(objPlayer.strPlayingID);
+					if(objPlayer.bIzWhileHumanEvent)
+						{
+						objPlayer.objVisibleControls.classList.remove('errorAudio');
+						objPlayer.objVisibleControls.classList.remove('stopped');
+						objPlayer.objVisibleControls.classList.remove('loadingAudio');
+						objPlayer.objVisibleControls.classList.remove('playing');
+						objPlayer.objVisibleControls.classList.remove('overload');
+						objPlayer.objVisibleControls.className	+=' errorAudio';
+	    					if(objPlayer.objPlayingBlock)
+							{
+							objPlayer.objPlayingBlock.classList.remove('overload');
+							objPlayer.objPlayingBlock.classList.remove('playing');
+							objPlayer.objPlayingBlock.classList.remove('stopped');
+							objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+							objPlayer.objPlayingBlock.classList.remove('errorAudio');
+							objPlayer.objPlayingBlock.className	+=' errorAudio';
+							}
+						objKIIM_StatisticalMembrane._stop();
+						console.log('[....]EDRO.Objects.Player: objPlayingBlock');
+						return false;
+						}
+					else
+						{
+						if(objPlayer.bIzNeedToBeStoppedEvent)
+							{
+							objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=true<br/>';
+							console.log('[Vvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent==TRUE');
+							
+							objPlayer.bIzNeedToBeStoppedEvent	=false;
+							//console.log('[Vvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=false');
+							this.bIzWeThinkPlayerIsPlaying		=false;
+							//console.log('[Vvvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=false');
+							//jPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError<br/>';
+
+							objKIIM_StatisticalMembrane._stop();
+							objPlayer.objVisibleControls.classList.remove('errorAudio');
+							objPlayer.objVisibleControls.classList.remove('stopped');
+							objPlayer.objVisibleControls.classList.remove('loadingAudio');
+							objPlayer.objVisibleControls.classList.remove('playing');
+							objPlayer.objVisibleControls.classList.remove('overload');
+							objPlayer.objVisibleControls.className	+=' stopped';
+		    					if(objPlayer.objPlayingBlock)
+								{
+								objPlayer.objPlayingBlock.classList.remove('overload');
+								objPlayer.objPlayingBlock.classList.remove('playing');
+								objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+								objPlayer.objPlayingBlock.classList.remove('errorAudio');
+								objPlayer.objPlayingBlock.className	+=' stopped';
+								objKIIM_StatisticalMembrane._stop();
+								}
+							//objPlayer.stop();
+							console.log('[====]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
+							return true;
+							}
+						else
+							{
+							objPlayer.objAudio.load();//++
+							}
+						}
+					/*objPlayer.objPlayingBlock		=document.getElementById(objPlayer.strPlayingID);
 					if(objPlayer.objPlayingBlock)
 						{
 						console.log('[Vvvv]EDRO.Objects.Player: objPlayingBlock');
@@ -1133,11 +1199,10 @@ oo2oo;
 							objPlayer.objAudio.load();//++
 							}
 						}
-
 					objKIIM_StatisticalMembrane._error();
 					objPlayer.objVisibleControls.className	+=' errorAudio';
 					console.log('[Vvv]EDRO.Objects.Player: objPlayingBlock.setError+');
-
+					*/
 
 					//objPlayer.bIzWhileOnHumanEvent=false;
 					console.log('[Vvv]EDRO.Objects.Player: bIzWhileOnHumanEvent=false');
